@@ -1,0 +1,4 @@
+<section class="editor">
+    <ngx-monaco-editor [(ngModel)]="userCode" [options]="editorOptions"></ngx-monaco-editor>
+    <button (click)="runCode()">{{ "CODE_EDITOR.RUN_CODE" | translate }}</button>
+</section>

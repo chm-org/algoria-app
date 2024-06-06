@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="content" [ngClass]="{'content--shrunken': hasAction}">
+    <ng-content></ng-content>
+  </div>
+
+  @if (hasAction) {
+    <div class="actions">
+      @if (hasPrevious) {
+        <button
+          class="action-button"
+          (click)="previous.emit()"
+        >
+          <img src="../../../assets/icons/left_icon.svg" alt="arrow left">
+          {{ "COMMON.BUTTONS.BACK" | translate }}
+        </button>
+      }
+
+      @if (hasNext) {
+        <button
+          class="action-button action-button--next"
+          (click)="next.emit()"
+        >
+          {{ "COMMON.BUTTONS.NEXT" | translate }}
+          <img src="../../../assets/icons/right_icon.svg" alt="arrow right">
+        </button>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,33 @@
+@if (parameter.title) {
+  <p>{{ parameter.title | translate }}</p>
+}
+
+@switch (parameter.type) {
+  @case (TextItemType.Pre) {
+    <ng-container *ngTemplateOutlet="pre;context:parameter"></ng-container>
+  }
+  @case (TextItemType.Code) {
+    <ng-container *ngTemplateOutlet="code;context:parameter"></ng-container>
+  }
+  @default () {
+    <ng-container *ngTemplateOutlet="text;context:parameter"></ng-container>
+  }
+}
+
+<!--TEMPLATES-->
+<ng-template #text let-content="body">
+  <p>{{ content | translate }}</p>
+</ng-template>
+
+<ng-template #pre let-content="body">
+  <pre>{{ content }}</pre>
+</ng-template>
+
+<ng-template #code let-content="body">
+  <pre>
+    <code>
+      {{ content }}
+    </code>
+  </pre>
+</ng-template>
+

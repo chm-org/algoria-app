@@ -1,0 +1,57 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f8ff;
+  font-family: Arial, sans-serif;
+  color: #333;
+  overflow: hidden;
+  position: relative;
+}
+
+.congrats-box {
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.congrats-box h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #28a745;
+}
+
+.congrats-box p {
+  font-size: 20px;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ff0;
+  animation: confetti-fall 5s linear infinite;
+  opacity: 0;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.avatar {
+  height: 88px;
+  float: left;
+  margin-right: 12px;
+}

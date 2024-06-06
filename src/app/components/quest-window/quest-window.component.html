@@ -1,0 +1,34 @@
+@if (activeQuest) {
+  @if (isIntroductionCompleted) {
+    <div class="quest-container">
+      <div class="left-pane">
+        <app-task-display [quest]="activeQuest"></app-task-display>
+      </div>
+
+      <div class="right-pane">
+        <app-code-editor [quest]="activeQuest"></app-code-editor>
+
+        <app-algorithm-result
+          [congratulationText]="activeQuest.congratulationText"
+          [matcher]="activeQuest.match"
+          (match)="onQuestCompleted($event)"
+        ></app-algorithm-result>
+
+      </div>
+    </div>
+  } @else {
+    <div class="intro-container">
+      <app-base-dialog [hasNext]="true" (next)="onIntroCompleted()">
+        <section>
+          <h1>{{ activeQuest.name | translate }}</h1>
+
+          <img class="avatar" src="../../../assets/allied_wizard_avatar.png" alt="actor avatar">
+
+          <p>{{ activeQuest.intro | translate }}</p>
+        </section>
+      </app-base-dialog>
+    </div>
+  }
+} @else {
+  <p>{{ "COMMON.LOADING" | translate }}</p>
+}

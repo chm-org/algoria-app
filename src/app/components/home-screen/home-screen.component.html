@@ -1,0 +1,10 @@
+<div class="container">
+  @if (currentUser()?.isOnboardingCompleted) {
+    <app-quest-window
+      [lastCompletedQuestId]="currentUser()?.lastCompletedQuestId"
+      (questCompleted)="onQuestCompleted($event)"
+    ></app-quest-window>
+  } @else {
+    <app-onboarding (completed)="onCompletedOnboarding()"></app-onboarding>
+  }
+</div>

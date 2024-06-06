@@ -1,0 +1,43 @@
+$actionsHeight: 48px;
+
+.dialog-content {
+  height: 100%;
+  width: 100%;
+
+  &__body {
+    height: calc(100% - #{$actionsHeight});
+    width: calc(100% - #{$actionsHeight});
+  }
+
+  &__actions {
+    height: $actionsHeight;
+  }
+}
+
+.content {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+
+  &__text {
+    flex: 1;
+  }
+
+  &__image-wrapper {
+    flex: 1;
+
+    img {
+      height: 100%;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+}
+
+.language-selector {
+  margin-bottom: 16px;
+}

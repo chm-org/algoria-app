@@ -1,0 +1,70 @@
+@if (isPrefaceCompleted) {
+  @if (activeStep) {
+    <app-base-dialog
+      [hasPrevious]="activeStepIndex > 0"
+      [hasNext]="activeStepIndex < steps.length"
+      (next)="onPaging(1)"
+      (previous)="onPaging(-1)"
+    >
+      <div class="dialog-content">
+        <div class="dialog-content__body content">
+          <div class="content__text">
+            @for (excerpt of activeStep.text; let index = $index; track index) {
+              @if (excerpt.headline) {
+                <h2>{{ excerpt.headline | translate }}</h2>
+              }
+
+              <p>{{ excerpt.description | translate }}</p>
+            }
+          </div>
+
+          @if (activeStep.imageUrl) {
+            <div class="content__image-wrapper">
+              <img [src]="activeStep.imageUrl" [alt]="activeStep.imageAlt">
+            </div>
+          }
+        </div>
+      </div>
+    </app-base-dialog>
+  }
+} @else {
+  <app-base-dialog>
+    <div class="dialog-content">
+      <div class="dialog-content__body content">
+        <div class="content__text">
+
+          <div class="language-selector">
+            <h2>{{ "ONBOARDING.CHOOSE_LANGUAGE" | translate }}</h2>
+
+            <select
+              class="form-select"
+              aria-label="Language
+              selector"
+              [value]="language"
+              (change)="onLanguageChanges($event)"
+            >
+              <option value="en">English</option>
+              <option value="ru">Русский</option>
+            </select>
+          </div>
+
+          @for (excerpt of preface.text; let index = $index; track index) {
+            @if (excerpt.headline) {
+              <h2>{{ excerpt.headline | translate }}</h2>
+            }
+
+            <p>{{ excerpt.description | translate }}</p>
+          }
+        </div>
+
+        <div class="content__image-wrapper">
+          <img [src]="preface.imageUrl" [alt]="preface.imageAlt">
+        </div>
+      </div>
+
+      <div class="dialog-content__actions actions">
+        <button type="button" (click)="onCompletePreface()">{{ "COMMON.BUTTONS.START" | translate }}!</button>
+      </div>
+    </div>
+  </app-base-dialog>
+}

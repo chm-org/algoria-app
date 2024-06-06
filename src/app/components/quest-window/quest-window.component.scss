@@ -1,0 +1,50 @@
+:host {
+  height: 100%;
+  width: 100%;
+  padding: 48px 0;
+}
+
+.quest-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.intro-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-pane, .right-pane {
+  flex: 1;
+  padding: 0 8px;
+  max-width: 50vw;
+}
+
+.left-pane {
+  overflow-x: auto;
+}
+
+.right-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+app-code-editor {
+  flex: 3;
+}
+
+app-algorithm-result {
+  flex: 1;
+}
+
+.avatar {
+  height: 88px;
+  float: left;
+  margin-right: 12px;
+}

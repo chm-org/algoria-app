@@ -1,0 +1,42 @@
+$actionsHeight: 48px;
+
+.container {
+  height: 70vh;
+  width: 70vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(128, 128, 128, 0.29);
+  padding: 16px;
+}
+
+.content {
+  height: 100%;
+
+  &--shrunken {
+    height: calc(100% - #{$actionsHeight});
+  }
+}
+
+.actions {
+  height: $actionsHeight;
+  width: 100%;
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-button {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px;
+
+  &--next {
+    margin-left: auto;
+  }
+
+  img {
+    width: 24px;
+  }
+}

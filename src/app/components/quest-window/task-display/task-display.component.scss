@@ -1,0 +1,17 @@
+.avatar {
+  height: 88px;
+  float: right;
+  margin: 0 8px;
+
+  &--left {
+    float: left;
+  }
+}
+
+section {
+  margin: 12px 0;
+}
+
+pre {
+  overflow: auto;
+}

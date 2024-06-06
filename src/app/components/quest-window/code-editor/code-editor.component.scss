@@ -1,0 +1,15 @@
+:host {
+  height: 100%;
+}
+
+section.editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+ngx-monaco-editor {
+  flex: 1;
+}

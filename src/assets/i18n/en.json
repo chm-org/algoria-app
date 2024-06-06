@@ -1,0 +1,100 @@
+{
+	"CHRONICLE_LIBRARY": {
+		"CONGRATULATIONS": "Well done, young hero! You've successfully organized the Chronicle Library. Now you know how to sort the data. Prepare for your next challenge: defending the city wall from attack!",
+		"DESCRIPTION": {
+			"EXPECTED_RESULT": {
+				"RESULT1_TITLE": "Sorted book list"
+			},
+			"INTRO": "The Chronicle Library preserves the knowledge of the ages, but due to a magical malfunction, the books have gotten mixed up. Your task is to sort them by year of publication. Use Quick Sort to do this. Good luck, young hero!",
+			"PARAMETERS": {
+				"PARAMETER1_TITLE": "Book list"
+			}
+		},
+		"HINT": {
+			"DESCRIPTION": {
+				"ITEM1": "Quick Sort is a sorting algorithm that uses the divide and conquer method. It works as follows: first, a pivot is selected from the array. Then the array is divided into two parts: elements smaller than the pivot and elements greater than or equal to the pivot. The same process is then recursively applied to each of the two parts. At the end, the sorted parts are combined to get the final sorted array."
+			}
+		},
+		"INTRO": "Now that you've learned the basics of pathfinding, it's time to learn how to organize information. The Chronicle Library is chaotic, with books scattered everywhere, and we need to sort them. You'll use sorting algorithms to put the library in order.",
+		"NAME": "Chronicle Library",
+		"PECULIARITIES": {
+			"ITEM1": "Efficiency: On average and in practice works faster than many other sorts (O(n log n)), although it can be slower in the worst case (O(n^2)).",
+			"ITEM2": "Unstable: Does not preserve the order of equal elements.",
+			"ITEM3": "Recursive: Based on a recursive approach, which may require additional memory for the call stack.",
+			"ITEM4": "In-place sorting: Works in-place, i.e. it does not require additional memory to store items."
+		}
+	},
+	"CODE_EDITOR": {
+		"RUN_CODE": "Run Code"
+	},
+	"COMMON": {
+		"BUTTONS": {
+			"BACK": "Back",
+			"NEXT": "Next",
+			"START": "Start"
+		},
+		"LOADING": "Loading..."
+	},
+	"CONGRATULATIONS": {
+		"HEADLINE": "Congratulations!",
+		"PARAGRAPH": "Congratulations young hero, your journey is complete, but there are many more adventures to come!",
+		"START_OVER": "Start over"
+	},
+	"DEVICE_WARNING": {
+		"HEADLINE": "Desktop Only",
+		"PARAGRAPH": "This is a code-writing app, thus for better user experience, it is available only on desktop devices. Please visit us on a desktop to access it."
+	},
+	"MAZE_OF_KNOWLEDGE": {
+		"CONGRATULATIONS": "Excellent, young hero! You have successfully found your way through the Maze of Knowledge using breadth-first search. Now you understand how search algorithms can help you on your journey. Get ready for the next challenge - organizing the Chronicle Library!",
+		"DESCRIPTION": {
+			"INTRO": "The maze of knowledge is a place where each room is connected to other corridors. Your task is to find the shortest path from the entrance to the exit using pathfinding algorithms. Good luck, young hero!",
+			"PARAMETERS": {
+				"PARAMETER1": "Maze Entrance - Room A",
+				"PARAMETER2": "Exit from the maze - room F",
+				"PARAMETER3_TITLE": "Maze graph"
+			}
+		},
+		"HINT": {
+			"DESCRIPTION": {
+				"ITEM1": "The breadth-first search (BFS) algorithm is used for traversal or search in graphs and trees. It starts from a source node and explores all its neighboring nodes at one level before moving to the next level nodes. In the traversal process, it explores all vertices sequentially, ensuring that all nodes at the current level are explored before moving to a deeper level. This makes BFS useful for finding the shortest path in graphs without weighted edges."
+			}
+		},
+		"INTRO": "Welcome to Algoria, young hero. I am Master Edgar, and I will teach you the basics of data structures and algorithms. Our first challenge is the Maze of Knowledge. This labyrinth holds the secrets of our ancient magic, and to get through it, you'll need to use pathfinding algorithms.",
+		"NAME": "The maze of knowledge",
+		"PECULIARITIES": {
+			"ITEM1": "Uses a queue to manage the nodes that need to be visited.",
+			"ITEM2": "Guarantees finding the shortest path (minimum number of traversed nodes on the path) in graphs with unweighted edges."
+		}
+	},
+	"ONBOARDING": {
+		"CHOOSE_LANGUAGE": "Choose language",
+		"STEP1": {
+			"PARAGRAPH1": "Dark times have fallen in the distant fantasy kingdom of Algoria, known for its marvels of magic and science. A sinister invader, the mage Krifton, is using ancient and forgotten algorithms to create chaos and destruction."
+		},
+		"STEP2": {
+			"PARAGRAPH1": "You, a young hero learning the art of algorithms and data structures, must pass a series of tests and defeat Krifton to restore peace to the kingdom."
+		}
+	},
+	"PREFACE": {
+		"DESCRIPTION": "Description",
+		"DESCRIPTION_TEXT": "Algorithmic Quest is an adventure game where the player needs to solve puzzles and complete tasks using various data structures and algorithms. The player travels through a fantasy world, encountering various obstacles that require the use of algorithms to overcome them.",
+		"GOAL": "Game Objective",
+		"GOAL_DETAILS": "The player must save the kingdom from invaders by completing a series of quests. Each quest requires solving puzzles using specific data structures and algorithms."
+	},
+	"TASK_DISPLAY": {
+		"ALGORITHM_DESCRIPTION": "Description",
+		"EXPECTED_RESULT": "Expected result",
+		"HELP_BUTTON": "Ask for help",
+		"IM_RONAN": "I am Ronan, chief smith of Algoria. Do you need help?",
+		"INITIAL_DATA": "Initial data",
+		"PECULIARITIES": "Peculiarities",
+		"PSEUDOCODE": "Pseudocode/Structure diagram"
+	},
+	"TEST_RUN_RESULTS": {
+		"IT_WORKED": "It worked!",
+		"NOT_WORKED": "That didn't work.",
+		"RESULT_PLACEHOLDER": "The result will be displayed here",
+		"WANNA_SAVE_PROGRESS": "Want to save your progress and move on to the next quest?",
+		"YOUR_CODE_OUTPUT": "Your code returned"
+	}
+}
