@@ -69,10 +69,10 @@ export class ChronicleLibraryQuest extends Quest implements AlgorithmicQuest {
       {type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.HINT.DESCRIPTION.ITEM1'}
     ],
     peculiarities: [
-      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.PECULIARITIES.ITEM1' },
-      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.PECULIARITIES.ITEM2' },
-      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.PECULIARITIES.ITEM3' },
-      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.PECULIARITIES.ITEM4' },
+      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.HINT.PECULIARITIES.ITEM1' },
+      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.HINT.PECULIARITIES.ITEM2' },
+      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.HINT.PECULIARITIES.ITEM3' },
+      { type: TextItemType.Text, body: 'CHRONICLE_LIBRARY.HINT.PECULIARITIES.ITEM4' },
     ],
     pseudocode: [
       {

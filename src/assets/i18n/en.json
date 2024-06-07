@@ -13,16 +13,48 @@
 		"HINT": {
 			"DESCRIPTION": {
 				"ITEM1": "Quick Sort is a sorting algorithm that uses the divide and conquer method. It works as follows: first, a pivot is selected from the array. Then the array is divided into two parts: elements smaller than the pivot and elements greater than or equal to the pivot. The same process is then recursively applied to each of the two parts. At the end, the sorted parts are combined to get the final sorted array."
+			},
+			"PECULIARITIES": {
+				"ITEM1": "Efficiency: On average and in practice works faster than many other sorts (O(n log n)), although it can be slower in the worst case (O(n^2)).",
+				"ITEM2": "Unstable: Does not preserve the order of equal elements.",
+				"ITEM3": "Recursive: Based on a recursive approach, which may require additional memory for the call stack.",
+				"ITEM4": "In-place sorting: Works in-place, i.e. it does not require additional memory to store items."
 			}
 		},
 		"INTRO": "Now that you've learned the basics of pathfinding, it's time to learn how to organize information. The Chronicle Library is chaotic, with books scattered everywhere, and we need to sort them. You'll use sorting algorithms to put the library in order.",
-		"NAME": "Chronicle Library",
-		"PECULIARITIES": {
-			"ITEM1": "Efficiency: On average and in practice works faster than many other sorts (O(n log n)), although it can be slower in the worst case (O(n^2)).",
-			"ITEM2": "Unstable: Does not preserve the order of equal elements.",
-			"ITEM3": "Recursive: Based on a recursive approach, which may require additional memory for the call stack.",
-			"ITEM4": "In-place sorting: Works in-place, i.e. it does not require additional memory to store items."
-		}
+		"NAME": "Chronicle Library"
+	},
+	"CITY_WALL": {
+		"CONGRATULATIONS": "You have successfully found the optimal distribution of defenders, and our capital is now maximally protected. Your use of dynamic programming helped us avoid defeat. You are truly worthy of the title of a true master of algorithms! Get ready for the new challenges that lie ahead!",
+		"DESCRIPTION": {
+			"EXPECTED_RESULT": {
+				"RESULT1_TITLE": "Distribution"
+			},
+			"INTRO": "Our walls are attacked by a different number of enemies, and each defender class has a strength that determines its effectiveness in battle. Thus, a unit of a defender's strength determines the number of enemies he can neutralize. Your task is to find the optimal distribution of defenders on the city walls, at which each wall will have the minimum number of defenders able to neutralize the enemies.",
+			"PARAMETERS": {
+				"PARAMETER1_TITLE": "A list of defenders",
+				"PARAMETER2_TITLE": "The walls"
+			}
+		},
+		"HINT": {
+			"DESCRIPTION": {
+				"ITEM1": "The algorithm inside the minDefenders function uses a dynamic programming method to find the minimum number of defenders needed to defend against a certain number of enemies. In this algorithm an array dp is created, where dp[i] stores the minimum number of defenders needed to defend against i enemies.",
+				"ITEM2": "An array dp of size enemiesAmount + 1 is created, filled with the value Number.MAX_SAFE_INTEGER, which symbolizes infinity. This value means that the number of defenders for a given number of enemies has not yet been determined. dp[0] is set to 0, since no defenders are required to defend against 0 enemies.",
+				"ITEM2_TITLE": "Initialization",
+				"ITEM3": "dp: For each number of enemies from 1 to enemiesAmount, all available defenders are considered. If the strength of a defender is less than or equal to the current number of enemies, the dp value is updated to reflect the minimum number of defenders.",
+				"ITEM3_TITLE": "Filling the array",
+				"ITEM4": "The value returned is dp[enemiesAmount], which represents the minimum number of defenders to defend against enemiesAmount enemies.",
+				"ITEM4_TITLE": "Result"
+			},
+			"PECULIARITIES": {
+				"ITEM1": "Dynamic programming. Uses a dynamic programming method to optimally solve a problem by storing the results of subtasks in the dp array.",
+				"ITEM2": "Optimization. The algorithm optimizes the number of defenders by looking at each defender and updating the minimum number needed for each intermediate sum of enemies.",
+				"ITEM3": "Time complexity. O(enemiesAmount * n), where n is the number of defenders.",
+				"ITEM4": "Space complexity. O(enemiesAmount), since an array is used to store the results of the subtasks."
+			}
+		},
+		"INTRO": "The enemy is approaching our capital, and we must be ready to defend it. Your task is to find the optimal distribution of defenders on the city walls in such a way as to provide maximum protection, taking into account the threat hanging over each of the walls and the classes of defenders. Use dynamic programming to solve this complex problem.",
+		"NAME": "City walls"
 	},
 	"CODE_EDITOR": {
 		"RUN_CODE": "Run Code"
@@ -57,14 +89,14 @@
 		"HINT": {
 			"DESCRIPTION": {
 				"ITEM1": "The breadth-first search (BFS) algorithm is used for traversal or search in graphs and trees. It starts from a source node and explores all its neighboring nodes at one level before moving to the next level nodes. In the traversal process, it explores all vertices sequentially, ensuring that all nodes at the current level are explored before moving to a deeper level. This makes BFS useful for finding the shortest path in graphs without weighted edges."
+			},
+			"PECULIARITIES": {
+				"ITEM1": "Uses a queue to manage the nodes that need to be visited.",
+				"ITEM2": "Guarantees finding the shortest path (minimum number of traversed nodes on the path) in graphs with unweighted edges."
 			}
 		},
 		"INTRO": "Welcome to Algoria, young hero. I am Master Edgar, and I will teach you the basics of data structures and algorithms. Our first challenge is the Maze of Knowledge. This labyrinth holds the secrets of our ancient magic, and to get through it, you'll need to use pathfinding algorithms.",
-		"NAME": "The maze of knowledge",
-		"PECULIARITIES": {
-			"ITEM1": "Uses a queue to manage the nodes that need to be visited.",
-			"ITEM2": "Guarantees finding the shortest path (minimum number of traversed nodes on the path) in graphs with unweighted edges."
-		}
+		"NAME": "The maze of knowledge"
 	},
 	"ONBOARDING": {
 		"CHOOSE_LANGUAGE": "Choose language",

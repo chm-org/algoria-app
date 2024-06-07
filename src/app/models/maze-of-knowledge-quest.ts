@@ -51,10 +51,10 @@ export class MazeOfKnowledgeQuest extends Quest implements AlgorithmicQuest {
       {type: TextItemType.Text, body: 'MAZE_OF_KNOWLEDGE.HINT.DESCRIPTION.ITEM1'}
     ],
     peculiarities: [
-      {type: TextItemType.Text, body: 'MAZE_OF_KNOWLEDGE.PECULIARITIES.ITEM1'},
+      {type: TextItemType.Text, body: 'MAZE_OF_KNOWLEDGE.HINT.PECULIARITIES.ITEM1'},
       {
         type: TextItemType.Text,
-        body: 'MAZE_OF_KNOWLEDGE.PECULIARITIES.ITEM2'
+        body: 'MAZE_OF_KNOWLEDGE.HINT.PECULIARITIES.ITEM2'
       }
     ],
     pseudocode: [
