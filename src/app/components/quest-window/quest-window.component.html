@@ -19,12 +19,15 @@
   } @else {
     <div class="intro-container">
       <app-base-dialog [hasNext]="true" (next)="onIntroCompleted()">
-        <section>
-          <h1>{{ activeQuest.name | translate }}</h1>
+        <section class="dialog-content">
+          <div class="dialog-content__text">
+            <h1>{{ activeQuest.name | translate }}</h1>
 
-          <img class="avatar" src="../../../assets/allied_wizard_avatar.png" alt="actor avatar">
+            <img class="dialog-content__avatar" src="../../../assets/allied_wizard_avatar.png" alt="allied wizard avatar">
 
-          <p>{{ activeQuest.intro | translate }}</p>
+            <p>{{ activeQuest.intro | translate }}</p>
+          </div>
+          <img class="dialog-content__image" [src]="activeQuest.coverImageUrl" alt="quest cover image">
         </section>
       </app-base-dialog>
     </div>

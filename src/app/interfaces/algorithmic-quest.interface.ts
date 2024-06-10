@@ -11,6 +11,7 @@ export interface AlgorithmicQuest extends BaseQuest{
   missingCodeTemplate: string;
   expectedResult: any;
   match: (actualResult: any) => boolean
+  coverImageUrl?: string;
 }
 
 export interface BaseQuest {

@@ -43,8 +43,16 @@ app-algorithm-result {
   flex: 1;
 }
 
-.avatar {
-  height: 88px;
-  float: left;
-  margin-right: 12px;
+.dialog-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 8px;
+
+  &__avatar {
+    height: 88px;
+    float: left;
+    margin-right: 12px;
+  }
 }
+

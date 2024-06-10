@@ -31,7 +31,7 @@ export const ONBOARDING: OnboardingStep[] = [
         description: 'ONBOARDING.STEP2.PARAGRAPH1'
       }
     ],
-    imageUrl: '../../assets/hero.png',
+    imageUrl: '../../assets/hero_at_art_arena.png',
     imageAlt: 'man in in a hoodie with a hood and a sword'
   }
 ]

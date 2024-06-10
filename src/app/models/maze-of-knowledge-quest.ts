@@ -27,6 +27,7 @@ export class MazeOfKnowledgeQuest extends Quest implements AlgorithmicQuest {
   expectedResult = ['A', 'B', 'D', 'F'];
   name = 'MAZE_OF_KNOWLEDGE.NAME';
   intro = 'MAZE_OF_KNOWLEDGE.INTRO';
+  coverImageUrl = '../../assets/maze_of_knowledge.png';
   description: QuestDescription = {
     intro: 'MAZE_OF_KNOWLEDGE.DESCRIPTION.INTRO',
     parameters: [

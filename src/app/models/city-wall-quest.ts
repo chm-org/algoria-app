@@ -67,6 +67,7 @@ export class CityWallQuest extends Quest implements AlgorithmicQuest {
   ];
   name = 'CITY_WALL.NAME';
   intro = 'CITY_WALL.INTRO';
+  coverImageUrl = '../../assets/city_walls.png';
   congratulationText = 'CITY_WALL.CONGRATULATIONS';
   description: QuestDescription = {
     intro: 'CITY_WALL.DESCRIPTION.INTRO',

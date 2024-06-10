@@ -30,6 +30,7 @@ export class ChronicleLibraryQuest extends Quest implements AlgorithmicQuest {
   ];
   name = 'CHRONICLE_LIBRARY.NAME';
   intro = 'CHRONICLE_LIBRARY.INTRO';
+  coverImageUrl = '../../assets/chronicle_library.png';
   congratulationText = 'CHRONICLE_LIBRARY.CONGRATULATIONS';
   description: QuestDescription = {
     intro: 'CHRONICLE_LIBRARY.DESCRIPTION.INTRO',
