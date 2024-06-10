@@ -18,7 +18,8 @@ export class CodeExecutionService {
           const result = eval(code);
           self.postMessage({ type: 'result', data: result });
         } catch (error) {
-          self.postMessage({ type: 'error', data: error.message });
+          console.error(error)
+          self.postMessage({ type: 'error', data: error.name + ': ' + error.message });
         }
         // Terminate the worker after execution
         self.close();
@@ -34,9 +35,7 @@ export class CodeExecutionService {
       worker.onmessage = (e) => {
         if (e.data.type === 'result' || e.data.type === 'error') {
 
-          if (e.data.type === 'result') {
-            this.taskStateSubject.next(e.data.data);
-          }
+          this.taskStateSubject.next(e.data.data);
 
           worker.terminate();
           URL.revokeObjectURL(url); // Cleanup URL object
