@@ -19,17 +19,18 @@ import { BaseDialogComponent } from "../base-dialog/base-dialog.component";
   styleUrl: './onboarding.component.scss'
 })
 export class OnboardingComponent {
+  @Output() completed = new EventEmitter<void>();
   preface = PREFACE;
   isPrefaceCompleted = false;
   steps = ONBOARDING;
   activeStepIndex = 0;
   activeStep = this.steps[this.activeStepIndex];
-  @Output() completed = new EventEmitter<void>();
   language = 'en';
 
   constructor(
     private translateService: TranslateService
-  ) {}
+  ) {
+  }
 
   onCompletePreface(): void {
     this.isPrefaceCompleted = true;
@@ -40,6 +41,7 @@ export class OnboardingComponent {
     this.activeStep = this.steps[this.activeStepIndex];
 
     if (this.activeStepIndex >= this.steps.length) {
+      debugger
       this.completed.emit()
     }
   }

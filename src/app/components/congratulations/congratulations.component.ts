@@ -13,13 +13,13 @@ import { UserService } from "../../services/user.service";
   styleUrl: './congratulations.component.scss'
 })
 export class CongratulationsComponent implements AfterViewInit {
-
   constructor(
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.createConfetti();

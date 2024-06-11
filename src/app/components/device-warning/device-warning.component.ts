@@ -11,5 +11,4 @@ import { TranslateModule } from "@ngx-translate/core";
   styleUrl: './device-warning.component.scss'
 })
 export class DeviceWarningComponent {
-
 }

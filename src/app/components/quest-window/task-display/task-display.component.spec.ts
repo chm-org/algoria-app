@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlgorithmicQuest } from "../../../interfaces/algorithmic-quest.interface";
+import { MOCK_QUEST, TRANSLATE_SERVICE_STUB } from "../../../utils/mocks";
 
 import { TaskDisplayComponent } from './task-display.component';
 
@@ -8,16 +10,28 @@ describe('TaskDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskDisplayComponent]
+      imports: [TaskDisplayComponent],
+      providers: [
+        TRANSLATE_SERVICE_STUB
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TaskDisplayComponent);
     component = fixture.componentInstance;
+    component.quest = MOCK_QUEST as AlgorithmicQuest;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set hint flag', () => {
+    component.isHintRequested = false;
+
+    component.showHint();
+
+    expect(component.isHintRequested).toBeTruthy();
   });
 });

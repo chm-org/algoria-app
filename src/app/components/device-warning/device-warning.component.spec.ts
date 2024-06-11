@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TRANSLATE_SERVICE_STUB } from "../../utils/mocks";
 
 import { DeviceWarningComponent } from './device-warning.component';
 
@@ -8,10 +9,13 @@ describe('DeviceWarningComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeviceWarningComponent]
+      imports: [DeviceWarningComponent],
+      providers: [
+        TRANSLATE_SERVICE_STUB
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(DeviceWarningComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

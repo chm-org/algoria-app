@@ -1,3 +1,4 @@
+import { SimpleChange, SimpleChanges } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseDialogComponent } from './base-dialog.component';
@@ -10,8 +11,8 @@ describe('BaseDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BaseDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(BaseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -19,5 +20,25 @@ describe('BaseDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should has action bar if has Next control', () => {
+    component.hasAction = false;
+    component.hasNext = true;
+    const mockChanges: SimpleChanges = {hasNext: {} as SimpleChange}
+
+    component.ngOnChanges(mockChanges)
+
+    expect(component.hasAction).toBeTruthy();
+  });
+
+  it('should has action bar if has Prev control', () => {
+    component.hasAction = false;
+    component.hasPrevious = true;
+    const mockChanges: SimpleChanges = {hasPrevious: {} as SimpleChange}
+
+    component.ngOnChanges(mockChanges)
+
+    expect(component.hasAction).toBeTruthy();
   });
 });

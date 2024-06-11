@@ -42,19 +42,19 @@ export class CodeExecutionService {
         }
       };
 
-      // TODO: Implement timeouts to prevent infinite loops. You can use setTimeout or setInterval in the main thread to terminate the worker if it runs for too long.
-      // TODO: Restrict the worker from making network requests to unauthorized domains using Content Security Policy (CSP).
-      // TODO: Perform static analysis on the code before running it to detect potentially harmful patterns.
-
       worker.postMessage(code);
     } catch (error) {
       console.error('Error running JavaScript code:', error);
     }
   }
 
+  transpileTypeScript(code: string): string {
+    return ts.transpile(code);
+  }
+
   runTypeScriptCode(code: string): void {
     try {
-      const transpiledCode = ts.transpile(code);
+      const transpiledCode = this.transpileTypeScript(code);
       this.runJavaScriptCode(transpiledCode);
     } catch (error) {
       console.error('Error transpiling TypeScript code:', error);
