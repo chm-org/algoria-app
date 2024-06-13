@@ -1,4 +1,15 @@
 <section class="editor">
-    <ngx-monaco-editor [(ngModel)]="userCode" [options]="editorOptions"></ngx-monaco-editor>
-    <button (click)="runCode()">{{ "CODE_EDITOR.RUN_CODE" | translate }}</button>
+  <ngx-monaco-editor [(ngModel)]="userCode" [options]="editorOptions"></ngx-monaco-editor>
+  <button
+    type="button"
+    [ngClass]="{'run-button--disabled': codeRunning()}"
+    (click)="runCode()"
+  >
+    <div class="button-content">
+      {{ "CODE_EDITOR.RUN_CODE" | translate }}
+      @if (codeRunning()) {
+        <div class="spinner"></div>
+      }
+    </div>
+  </button>
 </section>

@@ -13,3 +13,32 @@ section.editor {
 ngx-monaco-editor {
   flex: 1;
 }
+
+.run-button {
+  &--disabled {
+    pointer-events: none;
+    background: rgb(243, 243, 243);
+  }
+}
+
+.button-content {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  align-items: center;
+}
+
+.spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
