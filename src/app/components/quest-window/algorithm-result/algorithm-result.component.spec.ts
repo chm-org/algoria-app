@@ -34,18 +34,18 @@ describe('AlgorithmResultComponent', () => {
   });
 
   it('should check for a match on result submission', () => {
-    component.hasMatch = false;
+    component.hasMatch.set(false);
     const expectedResult = 'Lorem';
     component.matcher = (result) => result === expectedResult;
     spyPropertyGetter(codeExecutionService, 'taskState$').and.returnValue(of(expectedResult));
 
     component.ngOnInit();
 
-    expect(component.hasMatch).toBeTruthy();
+    expect(component.hasMatch()).toBeTruthy();
   });
 
   it('should emit match event if has a match', () => {
-    component.hasMatch = true;
+    component.hasMatch.set(true);
     const spy = spyOn(component.match, 'emit');
 
     component.onSaveAndProceed();
@@ -54,7 +54,7 @@ describe('AlgorithmResultComponent', () => {
   });
 
   it('should not emit match event if there is no match', () => {
-    component.hasMatch = false;
+    component.hasMatch.set(false);
     const spy = spyOn(component.match, 'emit');
 
     component.onSaveAndProceed();

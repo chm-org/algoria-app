@@ -41,7 +41,6 @@ export class OnboardingComponent {
     this.activeStep = this.steps[this.activeStepIndex];
 
     if (this.activeStepIndex >= this.steps.length) {
-      debugger
       this.completed.emit()
     }
   }

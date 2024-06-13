@@ -1,5 +1,6 @@
 import { JsonPipe } from "@angular/common";
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import type { WritableSignal } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
 import { CodeExecutionService } from "../../../services/code-execution.service";
@@ -19,14 +20,15 @@ export class AlgorithmResultComponent implements OnInit, OnDestroy {
   @Input({required: true}) matcher!: (result: any) => boolean
   @Output() match = new EventEmitter<boolean>();
 
-  hasExecutedCode = false;
-  hasMatch = false;
-  actualResult: any;
+  hasExecutedCode = signal(false);
+  hasMatch = signal(false);
+  actualResult: WritableSignal<any> = signal(null);
   private destroy$: Subject<void> = new Subject();
 
   constructor(
     private codeExecutionService: CodeExecutionService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.codeExecutionService.taskState$
@@ -34,9 +36,9 @@ export class AlgorithmResultComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((actualResult) => {
-        this.hasExecutedCode = true;
-        this.actualResult = actualResult;
-        this.hasMatch = this.matcher(actualResult);
+        this.hasExecutedCode.set(true);
+        this.actualResult.set(actualResult);
+        this.hasMatch.set(this.matcher(actualResult));
       });
   }
 
@@ -46,10 +48,10 @@ export class AlgorithmResultComponent implements OnInit, OnDestroy {
   }
 
   onSaveAndProceed() {
-    if (!this.hasMatch) {
+    if (!this.hasMatch()) {
       return
     }
 
-    this.match.emit(this.hasMatch);
+    this.match.emit(this.hasMatch());
   }
 }
