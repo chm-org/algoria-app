@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { MonacoEditorModule } from "ngx-monaco-editor-v2";
-import { CodeExecutionService } from "../../../services/code-execution.service";
 import { AlgorithmicQuest } from "../../../interfaces/algorithmic-quest.interface";
+import { CodeExecutionService } from "../../../services/code-execution.service";
 
 @Component({
   selector: 'app-code-editor',
@@ -17,10 +17,11 @@ export class CodeEditorComponent implements OnInit {
   @Input({required: true}) quest!: AlgorithmicQuest;
 
   editorOptions = {theme: 'vs-dark', language: 'javascript'};
-  userCode: string= '';
+  userCode: string = '';
   codeRunning = this.codeExecutionService.isExecutionInProgress;
 
-  constructor(private codeExecutionService: CodeExecutionService) {}
+  constructor(private codeExecutionService: CodeExecutionService) {
+  }
 
   ngOnInit() {
     this.userCode = this.quest.missingCodeTemplate;
@@ -29,9 +30,7 @@ export class CodeEditorComponent implements OnInit {
   runCode() {
     const code = this.quest.uncompletedCode + this.userCode;
 
-    if (this.editorOptions.language === 'typescript') {
-      this.codeExecutionService.runTypeScriptCode(code);
-    } else if (this.editorOptions.language === 'javascript') {
+    if (this.editorOptions.language === 'javascript') {
       this.codeExecutionService.runJavaScriptCode(code);
     } else {
       console.error('Unsupported language');

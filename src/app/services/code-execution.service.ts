@@ -1,6 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Subject } from "rxjs";
-import * as ts from 'typescript';
 
 @Injectable({
   providedIn: 'root'
@@ -42,19 +41,6 @@ export class CodeExecutionService {
         this.terminateWorker(worker, url, 'Error: Time for script execution exceeded. Check for possible infinite loops in your code.')
       }, this.executionTimeout)
     );
-  }
-
-  transpileTypeScript(code: string): string {
-    return ts.transpile(code);
-  }
-
-  runTypeScriptCode(code: string): void {
-    try {
-      const transpiledCode = this.transpileTypeScript(code);
-      this.runJavaScriptCode(transpiledCode);
-    } catch (error) {
-      console.error('Error transpiling TypeScript code:', error);
-    }
   }
 
   private createWorker() {

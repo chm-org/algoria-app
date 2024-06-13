@@ -71,32 +71,4 @@ describe('CodeExecutionService', () => {
       service.runJavaScriptCode('while(true) {}');
     });
   });
-
-  describe('run TS code', () => {
-    it('transpiles TypeScript to JavaScript and runs it', () => {
-      const codeJS = 'let a = 5;';
-      spyOn(service, 'transpileTypeScript').and.returnValue(codeJS);
-      spyOn(service, 'runJavaScriptCode');
-
-      service.runTypeScriptCode(codeTS);
-
-      expect(service.transpileTypeScript).toHaveBeenCalledTimes(1);
-      expect(service.transpileTypeScript).toHaveBeenCalledWith(codeTS);
-      expect(service.runJavaScriptCode).toHaveBeenCalledTimes(1);
-      expect(service.runJavaScriptCode).toHaveBeenCalledWith(codeJS);
-    });
-
-    it('logs an error if transpiling fails', () => {
-      const error = new Error('Transpiling error');
-      spyOn(service, 'transpileTypeScript').and.throwError(error);
-      spyOn(console, 'error');
-      spyOn(service, 'runJavaScriptCode');
-
-      service.runTypeScriptCode(codeTS);
-
-      expect(console.error).toHaveBeenCalledTimes(1);
-      expect(console.error).toHaveBeenCalledWith('Error transpiling TypeScript code:', error);
-      expect(service.runJavaScriptCode).not.toHaveBeenCalled();
-    });
-  });
 });
