@@ -109,9 +109,9 @@
 	},
 	"PREFACE": {
 		"DESCRIPTION": "Description",
-		"DESCRIPTION_TEXT": "Algorithmic Quest is an adventure game where the player needs to solve puzzles and complete tasks using various data structures and algorithms. The player travels through a fantasy world, encountering various obstacles that require the use of algorithms to overcome them.",
+		"DESCRIPTION_TEXT": "Algorithmic Quest is an adventure game where the player needs to solve puzzles and complete tasks using different data structures and algorithms.",
 		"GOAL": "Game Objective",
-		"GOAL_DETAILS": "The player must save the kingdom from invaders by completing a series of quests. Each quest requires solving puzzles using specific data structures and algorithms."
+		"GOAL_DETAILS": "The player needs to save the kingdom from invaders, traveling through the fantasy world and facing various obstacles."
 	},
 	"TASK_DISPLAY": {
 		"ALGORITHM_DESCRIPTION": "Description",
