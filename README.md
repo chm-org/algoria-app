@@ -1,6 +1,6 @@
 # Algoria
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+Algorithmic Quest is an adventure game where the player needs to solve puzzles and complete tasks using different data structures and algorithms. The player needs to save the kingdom from invaders, traveling through the fantasy world and facing various obstacles.
 
 ## Development server
 
