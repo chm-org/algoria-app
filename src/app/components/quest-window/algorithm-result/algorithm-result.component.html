@@ -1,4 +1,7 @@
 <section>
+  <p>
+    <a [href]="feedbackPageUrl" target="_blank">{{ "COMMON.FEEDBACK_PAGE" | translate }}</a>
+  </p>
   @if (hasMatch()) {
     <p>
       <strong class="success">{{ "TEST_RUN_RESULTS.IT_WORKED" | translate }}</strong>

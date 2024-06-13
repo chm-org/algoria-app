@@ -19,7 +19,7 @@ export class AlgorithmResultComponent implements OnInit, OnDestroy {
   @Input({required: true}) congratulationText!: string;
   @Input({required: true}) matcher!: (result: any) => boolean
   @Output() match = new EventEmitter<boolean>();
-
+  readonly feedbackPageUrl = 'https://chm.org.ua/algoria-feedbacks/'
   hasExecutedCode = signal(false);
   hasMatch = signal(false);
   actualResult: WritableSignal<any> = signal(null);
