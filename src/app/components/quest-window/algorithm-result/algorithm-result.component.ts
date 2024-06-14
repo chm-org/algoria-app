@@ -3,6 +3,7 @@ import type { WritableSignal } from '@angular/core';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
 import { Subject, takeUntil } from "rxjs";
+import { FEEDBACK_PAGE_URL } from "../../../consts/common";
 import { CodeExecutionService } from "../../../services/code-execution.service";
 
 @Component({
@@ -19,7 +20,7 @@ export class AlgorithmResultComponent implements OnInit, OnDestroy {
   @Input({required: true}) congratulationText!: string;
   @Input({required: true}) matcher!: (result: any) => boolean
   @Output() match = new EventEmitter<boolean>();
-  readonly feedbackPageUrl = 'https://chm.org.ua/algoria-feedbacks/'
+  readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
   hasExecutedCode = signal(false);
   hasMatch = signal(false);
   actualResult: WritableSignal<any> = signal(null);

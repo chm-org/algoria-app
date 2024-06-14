@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
+import { FEEDBACK_PAGE_URL } from "../../consts/common";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -13,6 +14,8 @@ import { UserService } from "../../services/user.service";
   styleUrl: './congratulations.component.scss'
 })
 export class CongratulationsComponent implements AfterViewInit {
+  readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
+
   constructor(
     private renderer: Renderer2,
     private elementRef: ElementRef,

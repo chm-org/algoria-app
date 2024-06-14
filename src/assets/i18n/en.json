@@ -70,6 +70,7 @@
 	},
 	"CONGRATULATIONS": {
 		"HEADLINE": "Congratulations!",
+		"LEAVE_FEEDBACK": "Your feedback is important for us! This is a demo version of the quest, and work on the remaining levels is ongoing. Please share your impressions and suggestions on our discussion page.",
 		"PARAGRAPH": "Congratulations young hero, your journey is complete, but there are many more adventures to come!",
 		"START_OVER": "Start over"
 	},

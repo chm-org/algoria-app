@@ -1,9 +1,17 @@
 <div class="congrats-box">
   <h1>{{ "CONGRATULATIONS.HEADLINE" | translate }}</h1>
 
-  <img class="avatar" src="../../../assets/allied_wizard_avatar.png" alt="actor avatar">
+  <div class="congrats-box__postface">
+    <img class="avatar" src="../../../assets/allied_wizard_avatar.png" alt="actor avatar">
 
-  <p>{{ "CONGRATULATIONS.PARAGRAPH" | translate }}</p>
+    <p>{{ "CONGRATULATIONS.PARAGRAPH" | translate }}</p>
+  </div>
+
+  <hr>
+  <p>{{ "CONGRATULATIONS.LEAVE_FEEDBACK" | translate }}</p>
+  <p>
+    <a [href]="feedbackPageUrl" target="_blank">{{ "COMMON.FEEDBACK_PAGE" | translate }}</a>
+  </p>
 
   <button (click)="onStartOver()">{{ "CONGRATULATIONS.START_OVER" | translate }}</button>
 </div>
