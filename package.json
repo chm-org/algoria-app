@@ -3,7 +3,7 @@
   "description": "An adventure game where the player needs to solve puzzles and complete tasks using different data structures and algorithms.",
   "author": "Roman Kordas <roman.kordas7@gmail.com>",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
