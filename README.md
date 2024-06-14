@@ -1,6 +1,14 @@
 # Algoria
 
-Algorithmic Quest is an adventure game where the player needs to solve puzzles and complete tasks using different data structures and algorithms. The player needs to save the kingdom from invaders, traveling through the fantasy world and facing various obstacles.
+Algorithmic Quest is an adventure game where the player needs to solve puzzles and complete tasks using different data structures and algorithms.
+
+![introduction text for a level](./beauties/intro.png "Level intro")
+
+The player needs to save the kingdom from invaders, traveling through the fantasy world and facing various obstacles.
+
+![window with the task, editor and the results section](./beauties/quest_window.png "Quest window")
+
+The homepage: https://algoria.chm.org.ua
 
 ## Development server
 
