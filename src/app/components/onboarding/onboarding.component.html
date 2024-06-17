@@ -19,9 +19,7 @@
           </div>
 
           @if (activeStep.imageUrl) {
-            <div class="content__image-wrapper">
-              <img [src]="activeStep.imageUrl" [alt]="activeStep.imageAlt">
-            </div>
+            <img class="content__image" [src]="activeStep.imageUrl" [alt]="activeStep.imageAlt">
           }
         </div>
       </div>
@@ -58,9 +56,7 @@
           }
         </div>
 
-        <div class="content__image-wrapper">
-          <img [src]="preface.imageUrl" [alt]="preface.imageAlt">
-        </div>
+        <img class="content__image" [src]="preface.imageUrl" [alt]="preface.imageAlt">
       </div>
 
       <div class="dialog-content__actions actions">
