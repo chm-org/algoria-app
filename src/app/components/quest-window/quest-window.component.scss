@@ -49,6 +49,10 @@ app-algorithm-result {
   display: flex;
   gap: 8px;
 
+  &__image {
+    height: 100%;
+  }
+
   &__avatar {
     height: 88px;
     float: left;
