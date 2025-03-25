@@ -8,11 +8,10 @@ import { QuestWindowComponent } from "../quest-window/quest-window.component";
 import { TaskDisplayComponent } from "../quest-window/task-display/task-display.component";
 
 @Component({
-  selector: 'app-home-screen',
-  standalone: true,
-  imports: [TaskDisplayComponent, CodeEditorComponent, OnboardingComponent, QuestWindowComponent, RouterOutlet],
-  templateUrl: './home-screen.component.html',
-  styleUrl: './home-screen.component.scss'
+    selector: 'app-home-screen',
+    imports: [TaskDisplayComponent, CodeEditorComponent, OnboardingComponent, QuestWindowComponent, RouterOutlet],
+    templateUrl: './home-screen.component.html',
+    styleUrl: './home-screen.component.scss'
 })
 export class HomeScreenComponent {
 currentUser = this.userService.getUser();

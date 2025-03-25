@@ -10,14 +10,13 @@ import {
 import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-base-dialog',
-  standalone: true,
-  imports: [
-    NgClass,
-    TranslateModule
-  ],
-  templateUrl: './base-dialog.component.html',
-  styleUrl: './base-dialog.component.scss'
+    selector: 'app-base-dialog',
+    imports: [
+        NgClass,
+        TranslateModule
+    ],
+    templateUrl: './base-dialog.component.html',
+    styleUrl: './base-dialog.component.scss'
 })
 export class BaseDialogComponent implements OnChanges {
   @Input() hasNext = false;

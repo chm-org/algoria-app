@@ -7,11 +7,10 @@ import { AlgorithmicQuest } from "../../../interfaces/algorithmic-quest.interfac
 import { CodeExecutionService } from "../../../services/code-execution.service";
 
 @Component({
-  selector: 'app-code-editor',
-  standalone: true,
-  imports: [MonacoEditorModule, FormsModule, TranslateModule, NgClass],
-  templateUrl: './code-editor.component.html',
-  styleUrl: './code-editor.component.scss'
+    selector: 'app-code-editor',
+    imports: [MonacoEditorModule, FormsModule, TranslateModule, NgClass],
+    templateUrl: './code-editor.component.html',
+    styleUrl: './code-editor.component.scss'
 })
 export class CodeEditorComponent implements OnInit {
   @Input({required: true}) quest!: AlgorithmicQuest;

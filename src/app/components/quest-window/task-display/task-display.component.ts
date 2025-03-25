@@ -5,15 +5,14 @@ import { AlgorithmicQuest } from "../../../interfaces/algorithmic-quest.interfac
 import { TextItemComponent } from "../text-item/text-item.component";
 
 @Component({
-  selector: 'app-task-display',
-  standalone: true,
-  imports: [
-    TranslateModule,
-    NgTemplateOutlet,
-    TextItemComponent,
-  ],
-  templateUrl: './task-display.component.html',
-  styleUrl: './task-display.component.scss'
+    selector: 'app-task-display',
+    imports: [
+        TranslateModule,
+        NgTemplateOutlet,
+        TextItemComponent,
+    ],
+    templateUrl: './task-display.component.html',
+    styleUrl: './task-display.component.scss'
 })
 export class TaskDisplayComponent {
   @Input({required: true}) quest!: AlgorithmicQuest;

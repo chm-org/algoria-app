@@ -7,14 +7,13 @@ import { FEEDBACK_PAGE_URL } from "../../../consts/common";
 import { CodeExecutionService } from "../../../services/code-execution.service";
 
 @Component({
-  selector: 'app-algorithm-result',
-  standalone: true,
-  imports: [
-    JsonPipe,
-    TranslateModule
-  ],
-  templateUrl: './algorithm-result.component.html',
-  styleUrl: './algorithm-result.component.scss'
+    selector: 'app-algorithm-result',
+    imports: [
+        JsonPipe,
+        TranslateModule
+    ],
+    templateUrl: './algorithm-result.component.html',
+    styleUrl: './algorithm-result.component.scss'
 })
 export class AlgorithmResultComponent implements OnInit, OnDestroy {
   @Input({required: true}) congratulationText!: string;

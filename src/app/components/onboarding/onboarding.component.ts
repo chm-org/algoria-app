@@ -7,16 +7,15 @@ import { BaseDialogComponent } from "../base-dialog/base-dialog.component";
 
 
 @Component({
-  selector: 'app-onboarding',
-  standalone: true,
-  imports: [
-    BaseDialogComponent,
-    TranslateModule,
-    NgTemplateOutlet,
-    FormsModule,
-  ],
-  templateUrl: './onboarding.component.html',
-  styleUrl: './onboarding.component.scss'
+    selector: 'app-onboarding',
+    imports: [
+        BaseDialogComponent,
+        TranslateModule,
+        NgTemplateOutlet,
+        FormsModule,
+    ],
+    templateUrl: './onboarding.component.html',
+    styleUrl: './onboarding.component.scss'
 })
 export class OnboardingComponent {
   @Output() completed = new EventEmitter<void>();

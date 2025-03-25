@@ -5,13 +5,12 @@ import { FEEDBACK_PAGE_URL } from "../../consts/common";
 import { UserService } from "../../services/user.service";
 
 @Component({
-  selector: 'app-congratulations',
-  standalone: true,
-  imports: [
-    TranslateModule
-  ],
-  templateUrl: './congratulations.component.html',
-  styleUrl: './congratulations.component.scss'
+    selector: 'app-congratulations',
+    imports: [
+        TranslateModule
+    ],
+    templateUrl: './congratulations.component.html',
+    styleUrl: './congratulations.component.scss'
 })
 export class CongratulationsComponent implements AfterViewInit {
   readonly feedbackPageUrl = FEEDBACK_PAGE_URL;

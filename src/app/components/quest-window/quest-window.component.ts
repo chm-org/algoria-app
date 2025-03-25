@@ -9,17 +9,16 @@ import { CodeEditorComponent } from "./code-editor/code-editor.component";
 import { TaskDisplayComponent } from "./task-display/task-display.component";
 
 @Component({
-  selector: 'app-quest-window',
-  standalone: true,
-  imports: [
-    AlgorithmResultComponent,
-    CodeEditorComponent,
-    TaskDisplayComponent,
-    BaseDialogComponent,
-    TranslateModule
-  ],
-  templateUrl: './quest-window.component.html',
-  styleUrl: './quest-window.component.scss'
+    selector: 'app-quest-window',
+    imports: [
+        AlgorithmResultComponent,
+        CodeEditorComponent,
+        TaskDisplayComponent,
+        BaseDialogComponent,
+        TranslateModule
+    ],
+    templateUrl: './quest-window.component.html',
+    styleUrl: './quest-window.component.scss'
 })
 export class QuestWindowComponent implements OnChanges {
   @Input({required: true}) lastCompletedQuestId: string | undefined;
