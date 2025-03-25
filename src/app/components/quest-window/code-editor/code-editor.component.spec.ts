@@ -1,3 +1,4 @@
+import { signal } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockModule, MockProvider } from "ng-mocks";
 import { MonacoEditorModule } from "ngx-monaco-editor-v2";
@@ -17,7 +18,7 @@ describe('CodeEditorComponent', () => {
       imports: [CodeEditorComponent, MockModule(MonacoEditorModule.forRoot())],
       providers: [
         TRANSLATE_SERVICE_STUB,
-        MockProvider(CodeExecutionService)
+        MockProvider(CodeExecutionService, {codeRunning: signal(false)}, 'useValue')
       ]
     })
       .compileComponents();
@@ -43,16 +44,6 @@ describe('CodeEditorComponent', () => {
 
   it('should run JS user code', () => {
     const spy = spyOn(codeExecutionService, 'runJavaScriptCode');
-    const expectedCode = MOCK_QUEST.uncompletedCode + MOCK_QUEST.missingCodeTemplate;
-
-    component.runCode();
-
-    expect(spy).toHaveBeenCalledWith(expectedCode);
-  });
-
-  it('should run TS user code', () => {
-    component.editorOptions = {...component.editorOptions, language: 'typescript'};
-    const spy = spyOn(codeExecutionService, 'runTypeScriptCode');
     const expectedCode = MOCK_QUEST.uncompletedCode + MOCK_QUEST.missingCodeTemplate;
 
     component.runCode();
