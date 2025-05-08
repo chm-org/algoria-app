@@ -1,0 +1,59 @@
+@import '../../../scss/variables';
+
+.side-panel {
+  display: grid;
+  grid-template-columns: $drawer-width auto;
+  height: 100vh;
+}
+
+.main-toolbar {
+  height: 100%;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &--bottom {
+    justify-content: flex-end;
+  }
+}
+
+.trigger-wrapper {
+  padding: 8px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.active {
+    background: #ccc;
+  }
+}
+
+.drawer {
+  padding: 0;
+  background-color: rgba(204, 204, 204, 0.4);
+  height: 100%;
+  width: 0;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+
+  &.expanded {
+    width: 30vw;
+    // TODO: set min width (apply transition instead of width change to keep transition)
+    padding: 4px 8px;
+  }
+}
+
+.drawer-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

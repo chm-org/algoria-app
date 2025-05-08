@@ -1,9 +1,6 @@
 <div class="container">
   @if (currentUser()?.isOnboardingCompleted) {
-    <app-quest-window
-      [lastCompletedQuestId]="currentUser()?.lastCompletedQuestId"
-      (questCompleted)="onQuestCompleted($event)"
-    ></app-quest-window>
+    <p-button [routerLink]="['map']">Start!</p-button>
   } @else {
     <app-onboarding (completed)="onCompletedOnboarding()"></app-onboarding>
   }

@@ -1,8 +1,12 @@
 import { inject } from "@angular/core";
 import { Router, Routes } from '@angular/router';
+import {
+  CodeWritingChallengeComponent
+} from './components/challenges/code-writing-challenge/code-writing-challenge.component';
 import { CongratulationsComponent } from "./components/congratulations/congratulations.component";
 import { DeviceWarningComponent } from "./components/device-warning/device-warning.component";
 import { HomeScreenComponent } from "./components/home-screen/home-screen.component";
+import { MapComponent } from './components/map/map.component';
 
 
 const isMobile = () => {
@@ -16,7 +20,7 @@ export const routes: Routes = [
   {
     path: '',
     title: 'Algoria',
-    component: HomeScreenComponent,
+    component: HomeScreenComponent, // for onboarding
     canActivate: [
       () => {
         const router = inject(Router)
@@ -24,6 +28,14 @@ export const routes: Routes = [
         return isMobile() ? router.parseUrl('/device-warning') : true
       }
     ]
+  },
+  {
+    path: 'map',
+    component: MapComponent, // main navigation component
+  },
+  {
+    path: 'code-writing',
+    component: CodeWritingChallengeComponent, // editor view for code-writing challenges
   },
   {
     path: 'device-warning',

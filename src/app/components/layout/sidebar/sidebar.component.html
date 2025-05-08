@@ -1,0 +1,38 @@
+<div class="side-panel">
+  <div class="main-toolbar">
+    <div class="toolbar-section">
+      <p-button
+        icon="pi pi-home"
+        [disabled]="isHomePage"
+      />
+    </div>
+
+    <div class="toolbar-section toolbar-section--bottom">
+      @for ( trigger of triggers; track trigger.slug) {
+        <div class="trigger-wrapper" [class.active]="activeTrigger?.slug === trigger.slug">
+          <p-button
+            [icon]="trigger.icon"
+            (click)="onToggleDrawer(trigger)"
+          />
+        </div>
+      }
+    </div>
+  </div>
+
+<!--  TODO: close drawer on Esc keyup-->
+  <div
+    class="drawer"
+    [class.expanded]="isExpanded()"
+  >
+    <div class="drawer-toolbar">
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        (onClick)="onCloseDrawer()"
+      ></p-button>
+    </div>
+
+    <ng-container *ngComponentOutlet="activeTrigger?.component || null"/>
+  </div>
+</div>

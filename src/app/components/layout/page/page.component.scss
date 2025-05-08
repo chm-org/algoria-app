@@ -1,0 +1,18 @@
+@import '../../../scss/variables';
+
+main {
+  padding: 0 0 0 $drawer-width;
+}
+
+aside {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: $drawer-width;
+}
+
+.main-content {
+  height: 100vh;
+  width: calc(100vw - #{$drawer-width});
+}
