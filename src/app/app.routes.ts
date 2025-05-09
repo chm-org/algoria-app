@@ -1,12 +1,12 @@
 import { inject } from "@angular/core";
 import { Router, Routes } from '@angular/router';
-import {
-  CodeWritingChallengeComponent
-} from './components/challenges/code-writing-challenge/code-writing-challenge.component';
+import { ChallengeComponent } from './components/challenges/challenge/challenge.component';
 import { CongratulationsComponent } from "./components/congratulations/congratulations.component";
 import { DeviceWarningComponent } from "./components/device-warning/device-warning.component";
 import { HomeScreenComponent } from "./components/home-screen/home-screen.component";
 import { MapComponent } from './components/map/map.component';
+import { challengesResolver } from './services/challenges.resolver';
+import { indexesResolver } from './services/indexes.resolver';
 
 
 const isMobile = () => {
@@ -25,6 +25,7 @@ export const routes: Routes = [
       () => {
         const router = inject(Router)
 
+        // TODO: pass only un-onboarded users, redirect others to the map
         return isMobile() ? router.parseUrl('/device-warning') : true
       }
     ]
@@ -32,10 +33,14 @@ export const routes: Routes = [
   {
     path: 'map',
     component: MapComponent, // main navigation component
+    resolve: {
+      challenges: challengesResolver,
+      indexes: indexesResolver,
+    }
   },
   {
-    path: 'code-writing',
-    component: CodeWritingChallengeComponent, // editor view for code-writing challenges
+    path: 'challenge/:id',
+    component: ChallengeComponent, // editor view for code-writing challenges
   },
   {
     path: 'device-warning',

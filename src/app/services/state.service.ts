@@ -18,6 +18,7 @@ export class StateService {
     indexes: [],
     skillTrees: [],
   });
+  private storyChallengesCache: Challenge[] = [];
 
   challenges = computed(() => this.state().challenges);
   expectations = computed(() => this.state().expectations);
@@ -25,6 +26,28 @@ export class StateService {
   skillTrees = computed(() => this.state().skillTrees);
 
   constructor() { }
+
+  getChallenge(id: string): Challenge | undefined {
+    return this.challenges().find(challenge => challenge.id === id);
+  }
+
+  getStoryIndex(): ChallengeIndex | undefined {
+    return this.indexes().find(index => index.type === 'story');
+  }
+
+  getStoryChallenges(): Challenge[] {
+    if (this.storyChallengesCache.length) {
+      return this.storyChallengesCache;
+    }
+
+    const storyIndex = this.getStoryIndex();
+
+    storyIndex
+      ? this.storyChallengesCache = this.challenges().filter(challenge => storyIndex!.challenges.includes(challenge.id))
+      : console.warn('Story index not found. Can not extract story challenges.');
+
+    return this.storyChallengesCache;
+  }
 
   setChallenges(challenges: Challenge[]) {
     this.state.set({...this.state(), challenges});

@@ -1,6 +1,4 @@
-<app-page>
-  <app-quest-window
-      [lastCompletedQuestId]="currentUser()?.lastCompletedQuestId"
-      (questCompleted)="onQuestCompleted($event)"
-    ></app-quest-window>
-</app-page>
+<app-quest-window
+    [lastCompletedQuestId]="currentUser()?.lastCompletedQuestId"
+    (questCompleted)="onQuestCompleted($event)"
+  ></app-quest-window>

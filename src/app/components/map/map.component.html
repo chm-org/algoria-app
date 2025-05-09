@@ -1,3 +1,9 @@
 <app-page [isHomePage]="true">
-  <p>map works!</p>
+  <div class="map-container">
+    <ul>
+      @for (challenge of challenges ; track challenge.id) {
+        <li [routerLink]="['/challenge', challenge.id]">{{ challenge.title }}</li>
+      }
+    </ul>
+  </div>
 </app-page>

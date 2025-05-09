@@ -1,5 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
 import { Component, Input, signal, Type } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { SkillsComponent } from '../../skills/skills.component';
 
@@ -14,7 +15,8 @@ interface DrawerTrigger {
   selector: 'app-sidebar',
   imports: [
     Button,
-    NgComponentOutlet
+    NgComponentOutlet,
+    RouterLink
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
