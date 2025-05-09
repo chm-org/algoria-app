@@ -7,6 +7,7 @@ import { HomeScreenComponent } from "./components/home-screen/home-screen.compon
 import { MapComponent } from './components/map/map.component';
 import { challengesResolver } from './services/challenges.resolver';
 import { indexesResolver } from './services/indexes.resolver';
+import { UserService } from './services/user.service';
 
 
 const isMobile = () => {
@@ -14,6 +15,26 @@ const isMobile = () => {
   const isMobile = /mobile|android|iphone|ipad|tablet|blackberry|opera mini|opera mobi/i.test(userAgent);
 
   return isMobile;
+}
+
+function getOnboardingCompleted(userService: UserService) {
+  const user = userService.getUser();
+
+  return user()?.isOnboardingCompleted;
+}
+
+function ensureOnboardingCompletion() {
+  return () => {
+    const router = inject(Router)
+    const userService = inject(UserService)
+
+    // new users should be redirected to onboarding
+    if (!getOnboardingCompleted(userService)) {
+      return router.parseUrl('/')
+    }
+
+    return true;
+  };
 }
 
 export const routes: Routes = [
@@ -24,15 +45,27 @@ export const routes: Routes = [
     canActivate: [
       () => {
         const router = inject(Router)
+        const userService = inject(UserService)
 
-        // TODO: pass only un-onboarded users, redirect others to the map
-        return isMobile() ? router.parseUrl('/device-warning') : true
+        if (isMobile()) {
+          router.parseUrl('/device-warning')
+        }
+
+        // onboarded users should be redirected to the map
+        if (getOnboardingCompleted(userService)) {
+          return router.parseUrl('/map')
+        }
+
+        return true
       }
     ]
   },
   {
     path: 'map',
     component: MapComponent, // main navigation component
+    canActivate: [
+      ensureOnboardingCompletion()
+    ],
     resolve: {
       challenges: challengesResolver,
       indexes: indexesResolver,
@@ -41,6 +74,9 @@ export const routes: Routes = [
   {
     path: 'challenge/:id',
     component: ChallengeComponent, // editor view for code-writing challenges
+    canActivate: [
+      ensureOnboardingCompletion()
+    ]
   },
   {
     path: 'device-warning',

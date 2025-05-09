@@ -1,7 +1,3 @@
 <div class="container">
-  @if (currentUser()?.isOnboardingCompleted) {
-    <p-button [routerLink]="['map']">Start!</p-button>
-  } @else {
-    <app-onboarding (completed)="onCompletedOnboarding()"></app-onboarding>
-  }
+  <app-onboarding (completed)="onCompletedOnboarding()"></app-onboarding>
 </div>
