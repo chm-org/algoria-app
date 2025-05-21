@@ -5,12 +5,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { MonacoEditorModule } from "ngx-monaco-editor-v2";
+import { MonacoEditorModule, NgxMonacoEditorConfig } from "ngx-monaco-editor-v2";
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 
+export const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: window.location.origin + "/assets/monaco/min/vs",
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(),
     importProvidersFrom([
-      MonacoEditorModule.forRoot(),
+      MonacoEditorModule.forRoot(monacoConfig),
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,

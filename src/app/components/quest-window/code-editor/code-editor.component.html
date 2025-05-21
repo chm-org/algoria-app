@@ -2,12 +2,12 @@
   <ngx-monaco-editor [(ngModel)]="userCode" [options]="editorOptions"></ngx-monaco-editor>
   <button
     type="button"
-    [ngClass]="{'run-button--disabled': codeRunning()}"
+    [ngClass]="{'run-button--disabled': executionInProgress}"
     (click)="runCode()"
   >
     <div class="button-content">
       {{ "CODE_EDITOR.RUN_CODE" | translate }}
-      @if (codeRunning()) {
+      @if (executionInProgress) {
         <div class="spinner"></div>
       }
     </div>

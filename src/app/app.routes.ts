@@ -5,7 +5,9 @@ import { CongratulationsComponent } from "./components/congratulations/congratul
 import { DeviceWarningComponent } from "./components/device-warning/device-warning.component";
 import { HomeScreenComponent } from "./components/home-screen/home-screen.component";
 import { MapComponent } from './components/map/map.component';
+import { WorldComponent } from './components/world/world.component';
 import { challengesResolver } from './services/challenges.resolver';
+import { expectationsResolver } from './services/expectations.resolver';
 import { indexesResolver } from './services/indexes.resolver';
 import { UserService } from './services/user.service';
 
@@ -53,7 +55,7 @@ export const routes: Routes = [
 
         // onboarded users should be redirected to the map
         if (getOnboardingCompleted(userService)) {
-          return router.parseUrl('/map')
+          return router.parseUrl('/world')
         }
 
         return true
@@ -61,21 +63,26 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'map',
-    component: MapComponent, // main navigation component
+    path: 'world',
+    component: WorldComponent, // main navigation component
     canActivate: [
       ensureOnboardingCompletion()
     ],
     resolve: {
       challenges: challengesResolver,
       indexes: indexesResolver,
-    }
-  },
-  {
-    path: 'challenge/:id',
-    component: ChallengeComponent, // editor view for code-writing challenges
-    canActivate: [
-      ensureOnboardingCompletion()
+      expectations: expectationsResolver,
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: MapComponent
+      },
+      {
+        path: 'challenge/:id',
+        component: ChallengeComponent, // editor view for code-writing challenges
+      },
     ]
   },
   {

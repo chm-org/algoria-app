@@ -2,7 +2,7 @@
   <div class="map-container">
     <ul>
       @for (challenge of challenges ; track challenge.id) {
-        <li [routerLink]="['/challenge', challenge.id]">{{ challenge.title }}</li>
+        <li [routerLink]="['challenge', challenge.id]">{{ challenge.title }}</li>
       }
     </ul>
   </div>

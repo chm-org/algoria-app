@@ -24,6 +24,7 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@primeng/themes": "^19.1.2",
+    "algoria-metaplex": "link:/home/rmn/codebase/CHM/algoria-metaplex",
     "algoria-utils": "link:/home/rmn/codebase/CHM/algoria-utils",
     "monaco-editor": "^0.52.2",
     "ng-mocks": "^14.13.0",

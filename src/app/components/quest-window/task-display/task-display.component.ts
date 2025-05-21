@@ -1,21 +1,23 @@
-import { NgTemplateOutlet } from "@angular/common";
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
-import { AlgorithmicQuest } from "../../../interfaces/algorithmic-quest.interface";
-import { TextItemComponent } from "../text-item/text-item.component";
+
+interface TaskDescription {
+  description: string;
+  hints: string[];
+}
 
 @Component({
     selector: 'app-task-display',
     imports: [
         TranslateModule,
-        NgTemplateOutlet,
-        TextItemComponent,
     ],
     templateUrl: './task-display.component.html',
     styleUrl: './task-display.component.scss'
 })
 export class TaskDisplayComponent {
-  @Input({required: true}) quest!: AlgorithmicQuest;
+  @Input({required: true}) title!: string;
+  @Input({required: true}) task!: TaskDescription;
+
   isHintRequested = false;
 
   showHint() {

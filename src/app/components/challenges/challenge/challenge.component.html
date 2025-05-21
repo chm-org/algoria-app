@@ -1,7 +1,9 @@
 <app-page>
-  @if (challenge?.type === 'codeWriting') {
-    <pre>
-      {{ challenge | json }}
-    </pre>
+  @if (codeWritingChallenge) {
+    <app-code-writing-challenge
+      [challenge]="codeWritingChallenge"
+      [expectations]="expectations"
+      (questCompleted)="onQuestCompleted($event)"
+    ></app-code-writing-challenge>
   }
 </app-page>

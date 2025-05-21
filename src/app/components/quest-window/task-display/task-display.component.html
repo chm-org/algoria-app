@@ -1,29 +1,10 @@
 <section>
-  <h1>{{ quest.name | translate }}</h1>
+  <h1>{{ title | translate }}</h1>
 
   <img class="avatar" src="../../../../assets/allied_wizard_avatar.png" alt="actor avatar">
 
-  <p>{{ quest.description.intro | translate }}</p>
-
-  <h2>{{ "TASK_DISPLAY.INITIAL_DATA" | translate }}</h2>
-  <ul>
-    @for (parameter of quest.description.parameters; let index = $index; track index) {
-      <li>
-        <app-text-item [parameter]="parameter"></app-text-item>
-      </li>
-    }
-  </ul>
-
-
-  <h2>{{ "TASK_DISPLAY.EXPECTED_RESULT" | translate }}</h2>
-  <ul>
-    @for (expectedResult of quest.description.expectedResult; let index = $index; track index) {
-      <li>
-        <app-text-item [parameter]="expectedResult"></app-text-item>
-      </li>
-    }
-  </ul>
-
+<!--  TODO: parse markdown-->
+  <p>{{ task.description | translate }}</p>
 </section>
 
 <hr>
@@ -36,24 +17,9 @@
 
   @if (isHintRequested) {
     <h2>{{ "TASK_DISPLAY.ALGORITHM_DESCRIPTION" | translate }}</h2>
-    @for (textItem of quest.hint.description; let index = $index; track index) {
-      <app-text-item [parameter]="textItem"></app-text-item>
-    }
-
-    @if (quest.hint.peculiarities) {
-      <h2>{{ "TASK_DISPLAY.PECULIARITIES" | translate }}</h2>
-      <ul>
-        @for (textItem of quest.hint.peculiarities; let index = $index; track index) {
-          <li>
-            <app-text-item [parameter]="textItem"></app-text-item>
-          </li>
-        }
-      </ul>
-    }
-
-    <h2>{{ "TASK_DISPLAY.PSEUDOCODE" | translate }}</h2>
-    @for (textItem of quest.hint.pseudocode; let index = $index; track index) {
-      <app-text-item [parameter]="textItem"></app-text-item>
+    @for (hint of task.hints; let index = $index; track index) {
+<!--     TODO: parse markdown-->
+      <p>{{ hint | translate }}</p>
     }
   } @else {
     <button (click)="showHint()">{{ "TASK_DISPLAY.HELP_BUTTON" | translate }}</button>

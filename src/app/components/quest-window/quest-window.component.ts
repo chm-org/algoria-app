@@ -11,10 +11,6 @@ import { TaskDisplayComponent } from "./task-display/task-display.component";
 @Component({
     selector: 'app-quest-window',
     imports: [
-        AlgorithmResultComponent,
-        CodeEditorComponent,
-        TaskDisplayComponent,
-        BaseDialogComponent,
         TranslateModule
     ],
     templateUrl: './quest-window.component.html',

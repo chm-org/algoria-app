@@ -1,4 +1,41 @@
-<app-quest-window
-    [lastCompletedQuestId]="currentUser()?.lastCompletedQuestId"
-    (questCompleted)="onQuestCompleted($event)"
-  ></app-quest-window>
+@if (isIntroductionCompleted) {
+    <div class="quest-container">
+      <div class="left-pane">
+        <app-task-display [title]="challenge.title" [task]="challenge.content"></app-task-display>
+      </div>
+
+      <div class="right-pane">
+        <app-code-editor
+          [executionInProgress]="executionInProgress()"
+          [boilerplateCode]="challenge.boilerplateCode"
+          (executeCode)="onExecuteCode($event)"
+        ></app-code-editor>
+
+        <app-algorithm-result
+          [congratulationText]="congratulationText"
+          [expectations]="expectations"
+          [submission]="submission()"
+          (challengeCompleted)="onChallengeCompleted()"
+          (executionCompleted)="onExecutionCompleted()"
+        ></app-algorithm-result>
+
+      </div>
+    </div>
+  } @else {
+    <div class="intro-container">
+      <p-button (onClick)="onIntroCompleted()">Complete Preface</p-button>
+<!--      TODO: add preface to challenge schema, update utility scripts, display preface here-->
+<!--      <app-base-dialog [hasNext]="true" (next)="onIntroCompleted()">-->
+<!--        <section class="dialog-content">-->
+<!--          <div class="dialog-content__text">-->
+<!--            <h1>{{ activeQuest.name | translate }}</h1>-->
+
+<!--            <img class="dialog-content__avatar" src="../../../assets/allied_wizard_avatar.png" alt="allied wizard avatar">-->
+
+<!--            <p>{{ activeQuest.intro | translate }}</p>-->
+<!--          </div>-->
+<!--          <img class="dialog-content__image" [src]="activeQuest.coverImageUrl" alt="quest cover image">-->
+<!--        </section>-->
+<!--      </app-base-dialog>-->
+    </div>
+  }

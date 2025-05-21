@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from "@angular/common";
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -11,7 +10,6 @@ import { BaseDialogComponent } from "../base-dialog/base-dialog.component";
     imports: [
         BaseDialogComponent,
         TranslateModule,
-        NgTemplateOutlet,
         FormsModule,
     ],
     templateUrl: './onboarding.component.html',

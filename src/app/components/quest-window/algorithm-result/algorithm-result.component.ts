@@ -1,57 +1,61 @@
-import { JsonPipe } from "@angular/common";
-import type { WritableSignal } from '@angular/core';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
+import type { OnChanges, SimpleChanges, WritableSignal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
-import { Subject, takeUntil } from "rxjs";
+import { MetaplexTestRunner } from 'algoria-metaplex';
+import { CodeSubmission, CodeWritingExpectations, ConsoleLogger, TestResult } from 'algoria-utils';
 import { FEEDBACK_PAGE_URL } from "../../../consts/common";
-import { CodeExecutionService } from "../../../services/code-execution.service";
 
 @Component({
-    selector: 'app-algorithm-result',
-    imports: [
-        JsonPipe,
-        TranslateModule
-    ],
-    templateUrl: './algorithm-result.component.html',
-    styleUrl: './algorithm-result.component.scss'
+  selector: 'app-algorithm-result',
+  imports: [
+    TranslateModule
+  ],
+  templateUrl: './algorithm-result.component.html',
+  styleUrl: './algorithm-result.component.scss'
 })
-export class AlgorithmResultComponent implements OnInit, OnDestroy {
+export class AlgorithmResultComponent implements OnChanges {
   @Input({required: true}) congratulationText!: string;
-  @Input({required: true}) matcher!: (result: any) => boolean
-  @Output() match = new EventEmitter<boolean>();
+  @Input() submission: CodeSubmission | undefined;
+  @Input() expectations: CodeWritingExpectations | undefined;
+  @Output() executionCompleted = new EventEmitter<void>();
+  @Output() challengeCompleted = new EventEmitter<void>();
+
   readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
-  hasExecutedCode = signal(false);
-  hasMatch = signal(false);
-  actualResult: WritableSignal<any> = signal(null);
-  private destroy$: Subject<void> = new Subject();
+  result: WritableSignal<TestResult> = signal({details: [], passed: false})
+  logger: ConsoleLogger;
+  runner: MetaplexTestRunner;
 
-  constructor(
-    private codeExecutionService: CodeExecutionService
-  ) {
+  constructor() {
+    this.logger = new ConsoleLogger();
+    this.runner = new MetaplexTestRunner(this.logger);
   }
 
-  ngOnInit() {
-    this.codeExecutionService.taskState$
-      .pipe(
-        takeUntil(this.destroy$)
-      )
-      .subscribe((actualResult) => {
-        this.hasExecutedCode.set(true);
-        this.actualResult.set(actualResult);
-        this.hasMatch.set(this.matcher(actualResult));
-      });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['submission']) {
+      const submission = changes['submission'].currentValue
+      if (!submission) return;
+
+      this.execute(submission, this.expectations);
+    }
   }
 
-  ngOnDestroy() {
-    this.destroy$.next()
-    this.destroy$.unsubscribe();
+  async execute(submission: CodeSubmission, expectations: CodeWritingExpectations | undefined): Promise<void> {
+    if (!expectations) {
+      console.error('No expectations provided');
+
+      return;
+    }
+
+    const result = await this.runner.runTests(submission, expectations.functions);
+    this.result.set(result)
+    this.executionCompleted.emit();
   }
 
-  onSaveAndProceed() {
-    if (!this.hasMatch()) {
+  onChallengeCompleted() {
+    if (!this.result().passed) {
       return
     }
 
-    this.match.emit(this.hasMatch());
+    this.challengeCompleted.emit();
   }
 }

@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { Button } from 'primeng/button';
 import { UserService } from "../../services/user.service";
 import { OnboardingComponent } from "../onboarding/onboarding.component";
 
 @Component({
   selector: 'app-home-screen',
-  imports: [OnboardingComponent, RouterLink, Button],
+  imports: [OnboardingComponent],
   templateUrl: './home-screen.component.html',
   styleUrl: './home-screen.component.scss'
 })
@@ -25,6 +24,6 @@ export class HomeScreenComponent {
       isOnboardingCompleted: true,
       language: this.translateService.currentLang
     });
-    this.router.navigate(['map']);
+    this.router.navigate(['world']);
   }
 }

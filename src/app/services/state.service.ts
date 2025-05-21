@@ -31,6 +31,10 @@ export class StateService {
     return this.challenges().find(challenge => challenge.id === id);
   }
 
+  getChallengeExpectations(challengeId: string): Expectations | undefined {
+    return this.expectations().find(expectation => expectation.challengeId === challengeId);
+  }
+
   getStoryIndex(): ChallengeIndex | undefined {
     return this.indexes().find(index => index.type === 'story');
   }

@@ -48,7 +48,7 @@ describe('AlgorithmResultComponent', () => {
     component.hasMatch.set(true);
     const spy = spyOn(component.match, 'emit');
 
-    component.onSaveAndProceed();
+    component.onChallengeCompleted();
 
     expect(spy).toHaveBeenCalled();
   });
@@ -57,7 +57,7 @@ describe('AlgorithmResultComponent', () => {
     component.hasMatch.set(false);
     const spy = spyOn(component.match, 'emit');
 
-    component.onSaveAndProceed();
+    component.onChallengeCompleted();
 
     expect(spy).not.toHaveBeenCalled();
   });
