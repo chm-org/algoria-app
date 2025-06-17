@@ -6,10 +6,10 @@ import { DeviceWarningComponent } from "./components/device-warning/device-warni
 import { HomeScreenComponent } from "./components/home-screen/home-screen.component";
 import { MapComponent } from './components/map/map.component';
 import { WorldComponent } from './components/world/world.component';
+import { UserRepository } from './services/user.repository';
 import { challengesResolver } from './services/challenges.resolver';
 import { expectationsResolver } from './services/expectations.resolver';
 import { indexesResolver } from './services/indexes.resolver';
-import { UserService } from './services/user.service';
 
 
 const isMobile = () => {
@@ -19,19 +19,19 @@ const isMobile = () => {
   return isMobile;
 }
 
-function getOnboardingCompleted(userService: UserService) {
-  const user = userService.getUser();
+function getOnboardingCompleted(userRepo: UserRepository) {
+  const user = userRepo.user();
 
-  return user()?.isOnboardingCompleted;
+  return user.isOnboardingCompleted;
 }
 
 function ensureOnboardingCompletion() {
   return () => {
     const router = inject(Router)
-    const userService = inject(UserService)
+    const userRepo = inject(UserRepository)
 
     // new users should be redirected to onboarding
-    if (!getOnboardingCompleted(userService)) {
+    if (!getOnboardingCompleted(userRepo)) {
       return router.parseUrl('/')
     }
 
@@ -47,14 +47,14 @@ export const routes: Routes = [
     canActivate: [
       () => {
         const router = inject(Router)
-        const userService = inject(UserService)
+        const userRepo = inject(UserRepository)
 
         if (isMobile()) {
           router.parseUrl('/device-warning')
         }
 
         // onboarded users should be redirected to the map
-        if (getOnboardingCompleted(userService)) {
+        if (getOnboardingCompleted(userRepo)) {
           return router.parseUrl('/world')
         }
 

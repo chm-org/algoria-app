@@ -26,6 +26,7 @@
     "@primeng/themes": "^19.1.2",
     "algoria-metaplex": "link:/home/rmn/codebase/CHM/algoria-metaplex",
     "algoria-utils": "link:/home/rmn/codebase/CHM/algoria-utils",
+    "idb": "^7",
     "monaco-editor": "^0.52.2",
     "ng-mocks": "^14.13.0",
     "ngx-monaco-editor-v2": "^19.0.2",

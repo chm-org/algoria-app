@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { UserService } from "../../services/user.service";
+import { UserRepository } from '../../services/user.repository';
 import { OnboardingComponent } from "../onboarding/onboarding.component";
 
 @Component({
@@ -11,19 +11,15 @@ import { OnboardingComponent } from "../onboarding/onboarding.component";
   styleUrl: './home-screen.component.scss'
 })
 export class HomeScreenComponent {
-  currentUser = this.userService.getUser();
-
   constructor(
     private router: Router,
-    private userService: UserService,
+    private userRepo: UserRepository,
     private translateService: TranslateService,
   ) {}
 
   onCompletedOnboarding() {
-    this.userService.updateUserData({
-      isOnboardingCompleted: true,
-      language: this.translateService.currentLang
-    });
-    this.router.navigate(['world']);
+    this.userRepo.setLanguage(this.translateService.currentLang)
+      .then(() => this.userRepo.completeOnboarding())
+      .then(() => this.router.navigate(['world']));
   }
 }

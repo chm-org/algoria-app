@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FEEDBACK_PAGE_URL } from "../../consts/common";
-import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'app-congratulations',
@@ -18,8 +17,6 @@ export class CongratulationsComponent implements AfterViewInit {
   constructor(
     private renderer: Renderer2,
     private elementRef: ElementRef,
-    private userService: UserService,
-    private router: Router
   ) {
   }
 
@@ -39,10 +36,5 @@ export class CongratulationsComponent implements AfterViewInit {
       this.renderer.setStyle(confetti, 'animationDelay', `${Math.random() * 5}s`);
       this.renderer.appendChild(this.elementRef.nativeElement, confetti);
     }
-  }
-
-  onStartOver() {
-    this.userService.pruneUserData();
-    this.router.navigate(['/']);
   }
 }

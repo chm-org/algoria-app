@@ -1,5 +1,9 @@
 import { HttpClient, provideHttpClient } from "@angular/common/http";
-import { ApplicationConfig, importProvidersFrom, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom, inject, provideAppInitializer,
+  provideExperimentalZonelessChangeDetection
+} from '@angular/core';
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -10,6 +14,10 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
+import { STORAGE_STRATEGY } from './consts/storage.token';
+import { IndexedDbStrategy } from './services/index-db.strategy';
+import { LocalStorageStrategy } from './services/local-storage.strategy';
+import { UserRepository } from './services/user.repository';
 
 export const monacoConfig: NgxMonacoEditorConfig = {
   baseUrl: window.location.origin + "/assets/monaco/min/vs",
@@ -17,6 +25,11 @@ export const monacoConfig: NgxMonacoEditorConfig = {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAppInitializer(() => {
+      const userRepo = inject(UserRepository)
+
+      return userRepo.pull();
+    }),
     provideAnimationsAsync(),
     providePrimeNG({
         theme: {
@@ -39,5 +52,18 @@ export const appConfig: ApplicationConfig = {
         useDefaultLang: true
       })
     ]),
+    {
+      provide : STORAGE_STRATEGY,
+      useFactory() {
+        /* Fallback when IndexedDB is not available (e.g. in private mode on older Safari) */
+        try {
+          if ('indexedDB' in window) {
+            return new IndexedDbStrategy();
+          }
+        } catch (_) { /* ignore */ }
+
+        return new LocalStorageStrategy();
+      }
+    },
   ],
 };

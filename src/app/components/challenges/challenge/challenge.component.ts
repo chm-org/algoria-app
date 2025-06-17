@@ -7,7 +7,7 @@ import {
   isCodeWritingExpectations
 } from 'algoria-utils';
 import { StateService } from '../../../services/state.service';
-import { UserService } from '../../../services/user.service';
+import { UserRepository } from '../../../services/user.repository';
 import { PageComponent } from '../../layout/page/page.component';
 import { CodeWritingChallengeComponent } from '../code-writing-challenge/code-writing-challenge.component';
 
@@ -27,7 +27,7 @@ export class ChallengeComponent {
   constructor(
     private stateService: StateService,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userRepo: UserRepository
   ) {
     const id = this.route.snapshot.params['id']
     const challenge = this.stateService.getChallenge(id);
@@ -40,6 +40,6 @@ export class ChallengeComponent {
   }
 
   onQuestCompleted({id}: {id: string}) {
-    this.userService.updateUserData({lastCompletedQuestId: id});
+    this.userRepo.completeChallenge(id);
   }
 }
