@@ -1,0 +1,24 @@
+<p-button
+  icon="pi pi-info-circle"
+  styleClass="p-button-rounded p-button-text"
+  (click)="dependencies.toggle($event)"
+></p-button>
+
+<p-popover #dependencies>
+
+  <div class="header">
+    <h2>The challenge is blocked</h2>
+  </div>
+  <div class="subheader">
+    <p>Complete the following challenges to proceed:</p>
+  </div>
+  <ul>
+    @for (item of challenges; track item.id) {
+      <li>
+        <a href="javascript:void(0)" (click)="onChallengeSelected(item.id)">
+          {{ item.title }}
+        </a>
+      </li>
+    }
+  </ul>
+</p-popover>

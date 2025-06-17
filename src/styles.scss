@@ -53,3 +53,9 @@ button:hover::after {
     width: 100%;
     left: 0;
 }
+
+.disabled {
+  color: #808080;
+  opacity: 0.6;
+  pointer-events: none;
+}

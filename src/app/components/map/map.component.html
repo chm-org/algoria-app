@@ -2,7 +2,21 @@
   <div class="map-container">
     <ul>
       @for (challenge of challenges ; track challenge.id) {
-        <li [routerLink]="['challenge', challenge.id]">{{ challenge.title }}</li>
+        <li>
+          <a
+            [routerLink]="['challenge', challenge.id]"
+            [ngClass]="{'disabled': challenge.disabled}"
+          >
+            {{ challenge.title }}
+          </a>
+
+          @if (challenge.dependencies.length) {
+            <app-dependencies
+              [ids]="challenge.dependencies"
+              (challengeSelected)="onDependencyClicked($event)"
+            ></app-dependencies>
+          }
+        </li>
       }
     </ul>
   </div>
