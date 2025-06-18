@@ -1,7 +1,7 @@
-@import '../../../scss/variables';
+@use '../../../scss/variables' as vars;
 
 main {
-  padding: 0 0 0 $drawer-width;
+  padding: 0 0 0 vars.$drawer-width;
 }
 
 aside {
@@ -9,10 +9,10 @@ aside {
   left: 0;
   top: 0;
   height: 100vh;
-  width: $drawer-width;
+  width: vars.$drawer-width;
 }
 
 .main-content {
   height: 100vh;
-  width: calc(100vw - #{$drawer-width});
+  width: calc(100vw - #{vars.$drawer-width});
 }
