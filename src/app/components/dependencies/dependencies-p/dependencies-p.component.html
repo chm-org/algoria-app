@@ -1,0 +1,19 @@
+<div class="header">
+  <h2>The challenge is blocked</h2>
+</div>
+<div class="subheader">
+  <p>Complete the following challenges to proceed:</p>
+</div>
+<ul>
+  @for (item of challenges; track item.id) {
+    <li>
+      <a
+        href="javascript:void(0)"
+        (click)="onChallengeSelected(item.id)"
+        [class.disabled]="item.blocked"
+      >
+        {{ item.title }}
+      </a>
+    </li>
+  }
+</ul>

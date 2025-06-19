@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { Challenge } from 'algoria-utils';
 import { Button } from 'primeng/button';
 import { Popover } from 'primeng/popover';
+import { AppChallenge } from '../../interfaces/app-challenge.interface';
 import { StateService } from '../../services/state.service';
+import { DependenciesPComponent } from './dependencies-p/dependencies-p.component';
 
 @Component({
   selector: 'app-dependencies',
   imports: [
     Popover,
-    Button
+    Button,
+    DependenciesPComponent
   ],
   templateUrl: './dependencies.component.html',
   styleUrl: './dependencies.component.scss'
@@ -16,7 +18,7 @@ import { StateService } from '../../services/state.service';
 export class DependenciesComponent implements OnChanges {
   @Input() ids: string[] = [];
   @Output() challengeSelected = new EventEmitter<string>();
-  challenges: Challenge[] = [];
+  challenges: AppChallenge[] = [];
 
   constructor(
     private stateService: StateService
@@ -27,7 +29,11 @@ export class DependenciesComponent implements OnChanges {
     if (changes['ids']) {
       this.challenges = this.ids
         .map(id => this.stateService.getChallenge(id))
-        .filter(Boolean) as Challenge[];
+        .filter(c => !!c)
+        .map(challenge => ({
+          ...challenge,
+          blocked: this.stateService.isBlockedChallenge(challenge, this.stateService.completedChallengesIds)
+        }))
     }
   }
 
