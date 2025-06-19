@@ -1,0 +1,29 @@
+<p-carousel
+  class="carousel"
+  [value]="trees"
+  [page]="activeTreeIndex"
+  [numVisible]="numVisible"
+  [numScroll]="numScroll"
+  (onPage)="onPageChanges($event)"
+>
+  <ng-template pTemplate="item" let-tree>
+    <div class="header">
+      <h2>{{ tree.name }}</h2>
+    </div>
+
+    <div class="subheader">
+      {{ tree.description }}
+    </div>
+
+    <div>
+      <p>Challenges:</p>
+      <ul>
+        @for ( challenge of challenges; track challenge.id ) {
+          <li>
+            {{ challenge.title }}
+          </li>
+        }
+      </ul>
+    </div>
+  </ng-template>
+</p-carousel>

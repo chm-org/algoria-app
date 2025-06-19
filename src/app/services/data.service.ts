@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Challenge, ChallengeIndex, Expectations } from 'algoria-utils';
+import { Challenge, ChallengeIndex, Expectations, SkillTree } from 'algoria-utils';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
@@ -42,6 +42,18 @@ export class DataService {
     return this.http.get<Expectations[]>(url).pipe(
       catchError(error => {
         console.error('Failed to load expectations', error);
+
+        throw error
+      })
+    );
+  }
+
+  getSkillTrees(): Observable<SkillTree[]> {
+    const url = `${environment.apiUrl}/skillTrees/index.json`;
+
+    return this.http.get<SkillTree[]>(url).pipe(
+      catchError(error => {
+        console.error('Failed to load skill trees', error);
 
         throw error
       })

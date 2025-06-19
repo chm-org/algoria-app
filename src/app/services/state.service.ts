@@ -7,6 +7,7 @@ interface State {
   indexes: ChallengeIndex[];
   skillTrees: SkillTree[];
 }
+type skillTreeId = string;
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class StateService {
     skillTrees: [],
   });
   private storyChallengesCache: Challenge[] = [];
+  private skillsChallengesCache: Map<skillTreeId, Challenge[]> = new Map();
 
   challenges = computed(() => this.state().challenges);
   expectations = computed(() => this.state().expectations);
@@ -51,6 +53,19 @@ export class StateService {
       : console.warn('Story index not found. Can not extract story challenges.');
 
     return this.storyChallengesCache;
+  }
+
+  getSkillsChallenges(treeId: string): Challenge[] {
+    if (this.skillsChallengesCache.has(treeId)) {
+      return this.skillsChallengesCache.get(treeId) as Challenge[];
+    }
+
+    const index = this.indexes().find(index => index.skillTreeId === treeId);
+    index
+      ? this.skillsChallengesCache.set(treeId, this.challenges().filter(challenge => index!.challenges.includes(challenge.id)))
+      : console.warn('No index found. Cannot identify challenges belonging to the skill tree.');
+
+    return this.skillsChallengesCache.get(treeId) || [];
   }
 
   setChallenges(challenges: Challenge[]) {

@@ -1,1 +1,6 @@
-<p>skills works!</p>
+<app-skills-p
+  [trees]="skillTrees()"
+  [activeTreeIndex]="activeTreeIndex()"
+  [challenges]="challenges()"
+  (activeTreeIndexChanges)="onActiveTreeIndexChanges($event)">
+</app-skills-p>

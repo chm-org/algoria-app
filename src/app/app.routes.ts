@@ -6,6 +6,7 @@ import { DeviceWarningComponent } from "./components/device-warning/device-warni
 import { HomeScreenComponent } from "./components/home-screen/home-screen.component";
 import { MapComponent } from './components/map/map.component';
 import { WorldComponent } from './components/world/world.component';
+import { skillTreesResolver } from './services/skill-trees.resolver';
 import { UserRepository } from './services/user.repository';
 import { challengesResolver } from './services/challenges.resolver';
 import { expectationsResolver } from './services/expectations.resolver';
@@ -72,6 +73,7 @@ export const routes: Routes = [
       challenges: challengesResolver,
       indexes: indexesResolver,
       expectations: expectationsResolver,
+      skillTrees: skillTreesResolver,
     },
     children: [
       {
