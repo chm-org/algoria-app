@@ -5,7 +5,7 @@
         <li>
           <a
             [routerLink]="['challenge', challenge.id]"
-            [ngClass]="{'disabled': challenge.disabled}"
+            [ngClass]="{'disabled': challenge.blocked}"
           >
             {{ challenge.title }}
           </a>

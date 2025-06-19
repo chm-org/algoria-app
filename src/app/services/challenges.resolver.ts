@@ -7,7 +7,7 @@ import { StateService } from './state.service';
 export const challengesResolver: ResolveFn<boolean | Observable<boolean>> = (route, state) => {
   const stateService = inject(StateService)
   const dataService = inject(DataService)
-  const challengesLoaded = stateService.challenges().length;
+  const challengesLoaded = stateService.challenges().size;
 
   if (challengesLoaded) return true;
 

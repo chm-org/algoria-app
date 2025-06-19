@@ -1,20 +1,22 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Challenge, ChallengeIndex, Expectations, SkillTree } from 'algoria-utils';
+import { UserRepository } from './user.repository';
 
 interface State {
-  challenges: Challenge[];
+  challenges: Map<challengeId, Challenge>;
   expectations: Expectations[];
   indexes: ChallengeIndex[];
   skillTrees: SkillTree[];
 }
 type skillTreeId = string;
+type challengeId = string;
 
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
   private state = signal<State>({
-    challenges: [],
+    challenges: new Map(),
     expectations: [],
     indexes: [],
     skillTrees: [],
@@ -22,15 +24,24 @@ export class StateService {
   private storyChallengesCache: Challenge[] = [];
   private skillsChallengesCache: Map<skillTreeId, Challenge[]> = new Map();
 
+  completedChallengesIds = this.userRepo.user().completedChallenges;
   challenges = computed(() => this.state().challenges);
   expectations = computed(() => this.state().expectations);
   indexes = computed(() => this.state().indexes);
   skillTrees = computed(() => this.state().skillTrees);
 
-  constructor() { }
+  constructor(
+    private userRepo: UserRepository,
+  ) { }
 
   getChallenge(id: string): Challenge | undefined {
-    return this.challenges().find(challenge => challenge.id === id);
+    return this.challenges().get(id);
+  }
+
+  isBlockedChallenge(challenge: Challenge, completedChallenges: string[]): boolean {
+    return challenge.dependencies?.length
+    ? !challenge.dependencies.every(dep => completedChallenges.includes(dep))
+    : false
   }
 
   getChallengeExpectations(challengeId: string): Expectations | undefined {
@@ -49,7 +60,7 @@ export class StateService {
     const storyIndex = this.getStoryIndex();
 
     storyIndex
-      ? this.storyChallengesCache = this.challenges().filter(challenge => storyIndex!.challenges.includes(challenge.id))
+      ? this.storyChallengesCache = Array.from(this.challenges().values()).filter(challenge => storyIndex!.challenges.includes(challenge.id))
       : console.warn('Story index not found. Can not extract story challenges.');
 
     return this.storyChallengesCache;
@@ -62,14 +73,14 @@ export class StateService {
 
     const index = this.indexes().find(index => index.skillTreeId === treeId);
     index
-      ? this.skillsChallengesCache.set(treeId, this.challenges().filter(challenge => index!.challenges.includes(challenge.id)))
+      ? this.skillsChallengesCache.set(treeId, Array.from(this.challenges().values()).filter(challenge => index!.challenges.includes(challenge.id)))
       : console.warn('No index found. Cannot identify challenges belonging to the skill tree.');
 
     return this.skillsChallengesCache.get(treeId) || [];
   }
 
   setChallenges(challenges: Challenge[]) {
-    this.state.set({...this.state(), challenges});
+    this.state.set({...this.state(), challenges: new Map(challenges.map(challenge => [challenge.id, challenge]))});
   }
 
   setExpectations(expectations: Expectations[]) {

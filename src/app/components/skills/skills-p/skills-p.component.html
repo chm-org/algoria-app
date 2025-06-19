@@ -20,7 +20,9 @@
       <ul>
         @for ( challenge of challenges; track challenge.id ) {
           <li>
-            {{ challenge.title }}
+            <a href="javascript:void(0)" [class.disabled]="challenge.blocked" (click)="onChallengeSelected(challenge.id)">
+              {{ challenge.title }}
+            </a>
           </li>
         }
       </ul>

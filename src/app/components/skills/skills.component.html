@@ -2,5 +2,7 @@
   [trees]="skillTrees()"
   [activeTreeIndex]="activeTreeIndex()"
   [challenges]="challenges()"
-  (activeTreeIndexChanges)="onActiveTreeIndexChanges($event)">
+  (activeTreeIndexChanges)="onActiveTreeIndexChanges($event)"
+  (challengeSelected)="onChallengeSelected($event)"
+>
 </app-skills-p>
