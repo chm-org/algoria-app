@@ -5,15 +5,22 @@
   <p>Complete the following challenges to proceed:</p>
 </div>
 <ul>
-  @for (item of challenges; track item.id) {
+  @for (challenge of challenges; track challenge.id) {
     <li>
       <a
         href="javascript:void(0)"
-        (click)="onChallengeSelected(item.id)"
-        [class.disabled]="item.blocked"
+        (click)="onChallengeSelected(challenge.id)"
+        [class.disabled]="challenge.blocked"
       >
-        {{ item.title }}
+        {{ challenge.title }}
       </a>
+      @if (challenge.skillTreeId) {
+        -
+        <a
+          href="javascript:void(0)"
+          (click)="onSkillSelected(challenge.skillTreeId!)"
+        >{{ (challenge.skillTreeId | skillTree)?.name }}</a>
+      }
     </li>
   }
 </ul>

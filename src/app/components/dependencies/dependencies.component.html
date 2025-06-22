@@ -7,7 +7,8 @@
 <p-popover #dependencies>
   <app-dependencies-p
     [challenges]="challenges"
-    (select)="onChallengeSelected($event)"
+    (challengeSelected)="onChallengeSelected($event)"
+    (skillTreeSelected)="onSkillTreeSelected($event)"
   ></app-dependencies-p>
 
 </p-popover>

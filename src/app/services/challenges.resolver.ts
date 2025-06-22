@@ -1,15 +1,14 @@
 import { inject } from '@angular/core';
-import { ResolveFn } from '@angular/router';
-import { catchError, map, NEVER, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { DataService } from './data.service';
 import { StateService } from './state.service';
 
-export const challengesResolver: ResolveFn<boolean | Observable<boolean>> = (route, state) => {
+export const challengesResolver = (): Observable<boolean> => {
   const stateService = inject(StateService)
   const dataService = inject(DataService)
   const challengesLoaded = stateService.challenges().size;
 
-  if (challengesLoaded) return true;
+  if (challengesLoaded) return of(true);
 
   return dataService.getChallenges()
     .pipe(

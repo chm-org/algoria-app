@@ -1,5 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Challenge, ChallengeIndex, Expectations, SkillTree } from 'algoria-utils';
+import { ChallengeMetadata } from '../interfaces/challenge-metadata.interface';
 import { UserRepository } from './user.repository';
 
 interface State {
@@ -11,6 +12,7 @@ interface State {
 type skillTreeId = string;
 type challengeId = string;
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,9 +23,12 @@ export class StateService {
     indexes: [],
     skillTrees: [],
   });
+  // lookup auxiliary caches
   private storyChallengesCache: Challenge[] = [];
   private skillsChallengesCache: Map<skillTreeId, Challenge[]> = new Map();
+  private challengesToIndexCache: Map<challengeId, ChallengeMetadata> = new Map();
 
+  // selectors
   completedChallengesIds = this.userRepo.user().completedChallenges;
   challenges = computed(() => this.state().challenges);
   expectations = computed(() => this.state().expectations);
@@ -79,6 +84,14 @@ export class StateService {
     return this.skillsChallengesCache.get(treeId) || [];
   }
 
+  getChallengeMetaData(challengeId: string): ChallengeMetadata | undefined {
+    return this.challengesToIndexCache.get(challengeId);
+  }
+
+  getSkillTree(skillTreeId: string): SkillTree | undefined {
+    return this.skillTrees().find(skillTree => skillTree.id === skillTreeId);
+  }
+
   setChallenges(challenges: Challenge[]) {
     this.state.set({...this.state(), challenges: new Map(challenges.map(challenge => [challenge.id, challenge]))});
   }
@@ -93,5 +106,17 @@ export class StateService {
 
   setSkillTrees(skillTrees: SkillTree[]) {
     this.state.set({...this.state(), skillTrees});
+  }
+
+  setChallengeToIndexMap(): void {
+    if (!this.challenges().size || !this.indexes().length) {
+      throw new Error('Cannot set challenge to index map. Challenges or indexes are not set.');
+    }
+
+    this.challengesToIndexCache = new Map(this.indexes().flatMap(index => index.challenges.map(challengeId => [challengeId, {
+      indexId: index.id,
+      indexType: index.type,
+      skillTreeId: index.skillTreeId
+    }])));
   }
 }

@@ -1,5 +1,6 @@
 import { inject } from "@angular/core";
 import { Router, Routes } from '@angular/router';
+import { catchError, forkJoin, map, of, tap } from 'rxjs';
 import { ChallengeComponent } from './components/challenges/challenge/challenge.component';
 import { CongratulationsComponent } from "./components/congratulations/congratulations.component";
 import { DeviceWarningComponent } from "./components/device-warning/device-warning.component";
@@ -7,6 +8,7 @@ import { HomeScreenComponent } from "./components/home-screen/home-screen.compon
 import { MapComponent } from './components/map/map.component';
 import { WorldComponent } from './components/world/world.component';
 import { skillTreesResolver } from './services/skill-trees.resolver';
+import { StateService } from './services/state.service';
 import { UserRepository } from './services/user.repository';
 import { challengesResolver } from './services/challenges.resolver';
 import { expectationsResolver } from './services/expectations.resolver';
@@ -70,8 +72,18 @@ export const routes: Routes = [
       ensureOnboardingCompletion()
     ],
     resolve: {
-      challenges: challengesResolver,
-      indexes: indexesResolver,
+      challenges: () => {
+        const stateService = inject(StateService);
+
+        return forkJoin({
+          challenges: challengesResolver(),
+          indexes: indexesResolver(),
+        }).pipe(
+          tap(() => stateService.setChallengeToIndexMap()),
+          map(() => true),
+          catchError(() => of(false))
+        );
+      },
       expectations: expectationsResolver,
       skillTrees: skillTreesResolver,
     },

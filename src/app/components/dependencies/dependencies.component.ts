@@ -32,6 +32,7 @@ export class DependenciesComponent implements OnChanges {
         .filter(c => !!c)
         .map(challenge => ({
           ...challenge,
+          ...this.stateService.getChallengeMetaData(challenge.id),
           blocked: this.stateService.isBlockedChallenge(challenge, this.stateService.completedChallengesIds)
         }))
     }
@@ -39,5 +40,9 @@ export class DependenciesComponent implements OnChanges {
 
   onChallengeSelected(id: string) {
     this.challengeSelected.emit(id);
+  }
+
+  onSkillTreeSelected($event: string) {
+    // TODO: open the drawer and navigate to skillTree
   }
 }

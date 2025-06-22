@@ -1,15 +1,14 @@
 import { inject } from '@angular/core';
-import { ResolveFn } from '@angular/router';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { DataService } from './data.service';
 import { StateService } from './state.service';
 
-export const indexesResolver: ResolveFn<boolean> = (route, state) => {
+export const indexesResolver = (): Observable<boolean> => {
   const stateService = inject(StateService)
   const dataService = inject(DataService)
   const indexesLoaded = stateService.indexes().length;
 
-  if (indexesLoaded) return true;
+  if (indexesLoaded) return of(true);
 
   return dataService.getIndexes()
     .pipe(
