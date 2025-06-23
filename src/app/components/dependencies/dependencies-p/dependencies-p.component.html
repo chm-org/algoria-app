@@ -19,7 +19,9 @@
         <a
           href="javascript:void(0)"
           (click)="onSkillSelected(challenge.skillTreeId!)"
-        >{{ (challenge.skillTreeId | skillTree)?.name }}</a>
+        >
+          {{ (challenge.skillTreeId | skillTree)?.name }}
+        </a>
       }
     </li>
   }

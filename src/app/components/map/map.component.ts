@@ -1,10 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Challenge } from 'algoria-utils';
 import { AppChallenge } from '../../interfaces/app-challenge.interface';
+import { SidebarService } from '../../services/sidebar.service';
+import { SkillsService } from '../../services/skills.service';
 import { StateService } from '../../services/state.service';
-import { UserRepository } from '../../services/user.repository';
 import { DependenciesComponent } from '../dependencies/dependencies.component';
 import { PageComponent } from '../layout/page/page.component';
 
@@ -27,6 +27,8 @@ export class MapComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private stateService: StateService,
+    private sidebarService: SidebarService,
+    private skillsService: SkillsService,
   ) {
     this.challenges = this.stateService.getStoryChallenges()
       .map(challenge => ({
@@ -39,5 +41,10 @@ export class MapComponent {
     this.router.navigate(['challenge', id], {
       relativeTo: this.activatedRoute
     })
+  }
+
+  onSkillTreeSelected(skillTreeId: string) {
+    this.skillsService.selectSkillTree(skillTreeId);
+    this.sidebarService.showSkills();
   }
 }

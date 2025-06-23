@@ -1,8 +1,7 @@
-import { Component, computed, signal, Signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, Signal } from '@angular/core';
 import { SkillTree } from 'algoria-utils';
 import { AppChallenge } from '../../interfaces/app-challenge.interface';
-import { StateService } from '../../services/state.service';
+import { SkillsService } from '../../services/skills.service';
 import { SkillsPComponent } from './skills-p/skills-p.component';
 
 @Component({
@@ -13,29 +12,25 @@ import { SkillsPComponent } from './skills-p/skills-p.component';
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss'
 })
-export class SkillsComponent {
-  activeTreeIndex = signal(0);
-  skillTrees: Signal<SkillTree[]> = this.stateService.skillTrees;
-  challenges: Signal<AppChallenge[]> = computed(() => {
-    const activeTree = this.skillTrees()[this.activeTreeIndex()]
-    return this.stateService.getSkillsChallenges(activeTree.id)
-      .map(challenge => ({
-        ...challenge,
-        blocked: this.stateService.isBlockedChallenge(challenge, this.stateService.completedChallengesIds)
-      }))
-  });
+export class SkillsComponent implements OnDestroy {
+  activeTreeIndex = this.skillsService.activeTreeIndex;
+  skillTrees: Signal<SkillTree[]> = this.skillsService.skillTrees;
+  challenges: Signal<AppChallenge[]> = this.skillsService.challenges;
 
   constructor(
-    private router: Router,
-    private stateService: StateService,
+    private skillsService: SkillsService,
   ) {
   }
 
+  ngOnDestroy() {
+    this.skillsService.setActiveTreeIndex(0);
+  }
+
   onActiveTreeIndexChanges({index}: { index: number }) {
-    this.activeTreeIndex.set(index);
+    this.skillsService.setActiveTreeIndex(index);
   }
 
   onChallengeSelected({id}: { id: string }) {
-    this.router.navigate(['/world', 'challenge', id])
+    this.skillsService.startChallenge(id);
   }
 }

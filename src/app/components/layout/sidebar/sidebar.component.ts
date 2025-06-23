@@ -1,15 +1,9 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, Input, signal, Type } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
-import { SkillsComponent } from '../../skills/skills.component';
+import { MenuItem, SidebarService } from '../../../services/sidebar.service';
 
-interface DrawerTrigger {
-  slug: string;
-  icon: string;
-  label: string;
-  component: Type<any>;
-}
 
 @Component({
   selector: 'app-sidebar',
@@ -21,28 +15,27 @@ interface DrawerTrigger {
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
   @Input() isHomePage = false;
-  isExpanded = signal(false);
-  readonly triggers: DrawerTrigger[] = [{
-    slug: 'skills',
-    icon: 'pi pi-lightbulb',
-    label: 'Skills',
-    component: SkillsComponent,
-  }]
-  activeTrigger: DrawerTrigger | null = null;
 
-  onToggleDrawer(trigger: DrawerTrigger) {
-    this.isExpanded() ? this.onCloseDrawer() : this.onOpenDrawer(trigger);
+  isExpanded = this.sidebarService.isExpanded;
+  readonly menuItems = this.sidebarService.menuItems;
+  activeMenuItem = this.sidebarService.activeMenuItem;
+
+  constructor(
+    private sidebarService: SidebarService,
+  ) {
   }
 
-  onOpenDrawer(trigger: DrawerTrigger) {
-    this.isExpanded.set(true);
-    this.activeTrigger = trigger;
+  ngOnDestroy() {
+    this.sidebarService.close();
+  }
+
+  onToggleDrawer(item: MenuItem) {
+    this.isExpanded() ? this.sidebarService.close() : this.sidebarService.open(item);
   }
 
   onCloseDrawer() {
-    this.isExpanded.set(false);
-    this.activeTrigger = null;
+    this.sidebarService.close();
   }
 }

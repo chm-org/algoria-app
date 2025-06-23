@@ -1,14 +1,14 @@
 <p-button
   icon="pi pi-info-circle"
   styleClass="p-button-rounded p-button-text"
-  (click)="dependencies.toggle($event)"
+  (click)="popover.toggle($event)"
 ></p-button>
 
-<p-popover #dependencies>
+<p-popover #popover>
   <app-dependencies-p
     [challenges]="challenges"
     (challengeSelected)="onChallengeSelected($event)"
-    (skillTreeSelected)="onSkillTreeSelected($event)"
+    (skillTreeSelected)="onSkillTreeSelected($event, popover)"
   ></app-dependencies-p>
 
 </p-popover>

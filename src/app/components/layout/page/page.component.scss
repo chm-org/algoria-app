@@ -10,6 +10,7 @@ aside {
   top: 0;
   height: 100vh;
   width: vars.$drawer-width;
+  z-index: 500;
 }
 
 .main-content {

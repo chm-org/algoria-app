@@ -18,10 +18,12 @@ import { DependenciesPComponent } from './dependencies-p/dependencies-p.componen
 export class DependenciesComponent implements OnChanges {
   @Input() ids: string[] = [];
   @Output() challengeSelected = new EventEmitter<string>();
+  @Output() skillTreeSelected = new EventEmitter<string>();
+
   challenges: AppChallenge[] = [];
 
   constructor(
-    private stateService: StateService
+    private stateService: StateService,
   ) {
   }
 
@@ -42,7 +44,8 @@ export class DependenciesComponent implements OnChanges {
     this.challengeSelected.emit(id);
   }
 
-  onSkillTreeSelected($event: string) {
-    // TODO: open the drawer and navigate to skillTree
+  onSkillTreeSelected(skillTreeId: string, popover: Popover) {
+    popover.hide();
+    this.skillTreeSelected.emit(skillTreeId);
   }
 }

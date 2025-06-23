@@ -10,11 +10,11 @@
     </div>
 
     <div class="toolbar-section toolbar-section--bottom">
-      @for ( trigger of triggers; track trigger.slug) {
-        <div class="trigger-wrapper" [class.active]="activeTrigger?.slug === trigger.slug">
+      @for ( item of menuItems; track item.slug) {
+        <div class="trigger-wrapper" [class.active]="activeMenuItem()?.slug === item.slug">
           <p-button
-            [icon]="trigger.icon"
-            (click)="onToggleDrawer(trigger)"
+            [icon]="item.icon"
+            (click)="onToggleDrawer(item)"
           />
         </div>
       }
@@ -35,6 +35,6 @@
       ></p-button>
     </div>
 
-    <ng-container *ngComponentOutlet="activeTrigger?.component || null"/>
+    <ng-container *ngComponentOutlet="activeMenuItem()?.component || null"/>
   </div>
 </div>
