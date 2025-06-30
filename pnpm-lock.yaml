@@ -41,9 +41,9 @@ importers:
       '@primeng/themes':
         specifier: ^19.1.2
         version: 19.1.2
-      algoria-metaplex:
-        specifier: link:/home/rmn/codebase/CHM/algoria-metaplex
-        version: link:../algoria-metaplex
+      algoria-runner:
+        specifier: link:/home/rmn/codebase/CHM/algoria-runner
+        version: link:../algoria-runner
       algoria-utils:
         specifier: link:/home/rmn/codebase/CHM/algoria-utils
         version: link:../algoria-utils

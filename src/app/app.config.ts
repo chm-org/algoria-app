@@ -12,12 +12,18 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { MonacoEditorModule, NgxMonacoEditorConfig } from "ngx-monaco-editor-v2";
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { DefaultLoggerFactory, LogConfig, LogLevel } from 'algoria-utils';
 
+import { environment } from '../environments/environment';
 import { routes } from './app.routes';
+import { LOGGER_FACTORY } from './consts/logger-factory.token';
 import { STORAGE_STRATEGY } from './consts/storage.token';
 import { IndexedDbStrategy } from './services/index-db.strategy';
 import { LocalStorageStrategy } from './services/local-storage.strategy';
 import { UserRepository } from './services/user.repository';
+
+
+LogConfig.instance.setLevel(environment.production ? LogLevel.INFO : LogLevel.DEBUG);
 
 export const monacoConfig: NgxMonacoEditorConfig = {
   baseUrl: window.location.origin + "/assets/monaco/min/vs",
@@ -65,5 +71,11 @@ export const appConfig: ApplicationConfig = {
         return new LocalStorageStrategy();
       }
     },
+    {
+      provide: LOGGER_FACTORY,
+      useFactory: () => {
+        return new DefaultLoggerFactory();
+      }
+    }
   ],
 };

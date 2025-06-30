@@ -24,7 +24,7 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@primeng/themes": "^19.1.2",
-    "algoria-metaplex": "link:/home/rmn/codebase/CHM/algoria-metaplex",
+    "algoria-runner": "link:/home/rmn/codebase/CHM/algoria-runner",
     "algoria-utils": "link:/home/rmn/codebase/CHM/algoria-utils",
     "idb": "^8.0.3",
     "monaco-editor": "^0.52.2",

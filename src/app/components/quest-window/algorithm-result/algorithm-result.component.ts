@@ -1,9 +1,15 @@
-import type { OnChanges, SimpleChanges, WritableSignal } from '@angular/core';
+import { Inject, OnChanges, SimpleChanges, WritableSignal } from '@angular/core';
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
-import { MetaplexTestRunner } from 'algoria-metaplex';
-import { CodeSubmission, CodeWritingExpectations, ConsoleLogger, TestResult } from 'algoria-utils';
+import { IsolatedRunner } from 'algoria-runner';
+import {
+  CodeSubmission,
+  CodeWritingExpectations,
+  type LoggerFactory,
+  TestResult
+} from 'algoria-utils';
 import { FEEDBACK_PAGE_URL } from "../../../consts/common";
+import { LOGGER_FACTORY } from '../../../consts/logger-factory.token';
 
 @Component({
   selector: 'app-algorithm-result',
@@ -22,12 +28,12 @@ export class AlgorithmResultComponent implements OnChanges {
 
   readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
   result: WritableSignal<TestResult> = signal({details: [], passed: false})
-  logger: ConsoleLogger;
-  runner: MetaplexTestRunner;
+  runner: IsolatedRunner;
 
-  constructor() {
-    this.logger = new ConsoleLogger();
-    this.runner = new MetaplexTestRunner(this.logger);
+  constructor(
+    @Inject(LOGGER_FACTORY) private loggerF: LoggerFactory
+  ) {
+    this.runner = new IsolatedRunner(this.loggerF);
   }
 
   ngOnChanges(changes: SimpleChanges) {
