@@ -1,58 +1,87 @@
-import { JsonPipe } from "@angular/common";
-import type { WritableSignal } from '@angular/core';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  Output,
+  signal,
+  SimpleChanges,
+  WritableSignal
+} from '@angular/core';
 import { TranslateModule } from "@ngx-translate/core";
-import { Subject, takeUntil } from "rxjs";
+import { IsolatedRunner } from 'algoria-runner';
+import { CodeSubmission, CodeWritingExpectations, LoggerFactory, TestResult } from 'algoria-utils';
 import { FEEDBACK_PAGE_URL } from "../../../consts/common";
-import { CodeExecutionService } from "../../../services/code-execution.service";
+import { LOGGER_FACTORY } from '../../../consts/logger-factory.token';
 
 @Component({
   selector: 'app-algorithm-result',
   standalone: true,
   imports: [
-    JsonPipe,
     TranslateModule
   ],
   templateUrl: './algorithm-result.component.html',
   styleUrl: './algorithm-result.component.scss'
 })
-export class AlgorithmResultComponent implements OnInit, OnDestroy {
+export class AlgorithmResultComponent implements OnChanges {
   @Input({required: true}) congratulationText!: string;
-  @Input({required: true}) matcher!: (result: any) => boolean
-  @Output() match = new EventEmitter<boolean>();
+  @Input() submission: CodeSubmission | undefined;
+  @Input() expectations: CodeWritingExpectations | undefined;
+  @Output() executionCompleted = new EventEmitter<void>();
+  @Output() challengeCompleted = new EventEmitter<void>();
+
+  actualResultInFailedTest: WritableSignal<string | null> = signal(null);
   readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
-  hasExecutedCode = signal(false);
-  hasMatch = signal(false);
-  actualResult: WritableSignal<any> = signal(null);
-  private destroy$: Subject<void> = new Subject();
+  result: WritableSignal<TestResult> = signal({details: [], passed: false})
+  runner: IsolatedRunner;
 
   constructor(
-    private codeExecutionService: CodeExecutionService
+    @Inject(LOGGER_FACTORY) private loggerF: LoggerFactory
   ) {
+    this.runner = new IsolatedRunner(this.loggerF);
   }
 
-  ngOnInit() {
-    this.codeExecutionService.taskState$
-      .pipe(
-        takeUntil(this.destroy$)
-      )
-      .subscribe((actualResult) => {
-        this.hasExecutedCode.set(true);
-        this.actualResult.set(actualResult);
-        this.hasMatch.set(this.matcher(actualResult));
-      });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['submission']) {
+      const submission = changes['submission'].currentValue
+      if (!submission) return;
+
+      this.execute(submission, this.expectations);
+    }
   }
 
-  ngOnDestroy() {
-    this.destroy$.next()
-    this.destroy$.unsubscribe();
+  async execute(submission: CodeSubmission, expectations: CodeWritingExpectations | undefined): Promise<void> {
+    if (!expectations) {
+      console.error('No expectations provided');
+
+      return;
+    }
+
+    const result = await this.runner.runTests(submission, expectations.functions);
+    this.result.set(result)
+    if (result.passed) {
+      this.actualResultInFailedTest.set(null);
+    } else {
+      this.actualResultInFailedTest.set(this.parseErrorMessage(result.details));
+    }
+
+    this.executionCompleted.emit();
   }
 
-  onSaveAndProceed() {
-    if (!this.hasMatch()) {
+  onChallengeCompleted() {
+    if (!this.result().passed) {
       return
     }
 
-    this.match.emit(this.hasMatch());
+    this.challengeCompleted.emit();
   }
+
+  // Temporary measure, follow the remastering branch for details
+   private parseErrorMessage(details: string[]): string | null {
+     const info = details[1];
+     const actualResult = info.match(/got:\s*(.*?)\s*instead\./)?.[1];
+
+     return actualResult || null;
+   }
 }

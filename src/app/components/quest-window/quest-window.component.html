@@ -6,14 +6,19 @@
       </div>
 
       <div class="right-pane">
-        <app-code-editor [quest]="activeQuest"></app-code-editor>
+        <app-code-editor
+          [executionInProgress]="executionInProgress()"
+          [boilerplateCode]="activeQuest.missingCodeTemplate"
+          (executeCode)="onExecuteCode($event)"
+        ></app-code-editor>
 
         <app-algorithm-result
           [congratulationText]="activeQuest.congratulationText"
-          [matcher]="activeQuest.match"
-          (match)="onQuestCompleted($event)"
+          [expectations]="activeQuest.expectedResult"
+          [submission]="submission()"
+          (challengeCompleted)="onChallengeCompleted()"
+          (executionCompleted)="onExecutionCompleted()"
         ></app-algorithm-result>
-
       </div>
     </div>
   } @else {

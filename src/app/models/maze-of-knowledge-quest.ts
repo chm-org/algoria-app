@@ -1,3 +1,4 @@
+import { CodeWritingExpectations, type TestCase } from 'algoria-utils';
 import { AlgorithmicQuest } from "../interfaces/algorithmic-quest.interface";
 import { QuestDescription } from "../interfaces/quest-description.interface";
 import { QuestHint } from "../interfaces/quest-hint.interface";
@@ -24,7 +25,33 @@ export class MazeOfKnowledgeQuest extends Quest implements AlgorithmicQuest {
       // write your code here
     }
   `;
-  expectedResult = ['A', 'B', 'D', 'F'];
+  expectedResult: CodeWritingExpectations = {
+    type: 'codeWriting',
+    challengeId: this.id,
+    functions: [
+      {
+        functionName: 'bfs',
+        testCases: [
+          {
+            input: [
+              {
+                'A': ['B', 'C'],
+                'B': ['A', 'D', 'E'],
+                'C': ['A', 'E'],
+                'D': ['B', 'F'],
+                'E': ['B', 'C', 'F'],
+                'F': ['D', 'E']
+              },
+              'A',
+              'F'
+            ],
+            expectedOutput: ['A', 'B', 'D', 'F'],
+            matcherType: "deepEqual",
+          }
+        ]
+      }
+    ]
+  };
   name = 'MAZE_OF_KNOWLEDGE.NAME';
   intro = 'MAZE_OF_KNOWLEDGE.INTRO';
   coverImageUrl = '../../assets/maze_of_knowledge.png';
@@ -112,11 +139,5 @@ export class MazeOfKnowledgeQuest extends Quest implements AlgorithmicQuest {
 
   constructor(level: number, quest: number) {
     super(level, quest);
-  }
-
-  match = (actualResult: any) => {
-    return Array.isArray(actualResult) &&
-      actualResult.length === this.expectedResult.length &&
-      actualResult.every((value, index) => value === this.expectedResult[index]);
   }
 }

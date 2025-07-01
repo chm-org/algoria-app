@@ -30,25 +30,6 @@ describe('QuestWindowComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should switch active quest on last completed quest id changes', () => {
-    component.activeQuest = undefined;
-    const lastCompletedQuestId = '1.1';
-    const expectedNextQuestId = '1.2';
-    const mockChanges = {
-      lastCompletedQuestId: {
-        previousValue: undefined,
-        currentValue: lastCompletedQuestId,
-        firstChange: false,
-        isFirstChange: () => false
-      }
-    };
-
-    component.ngOnChanges(mockChanges);
-
-    expect(component.activeQuest).toBeTruthy();
-    expect(component.activeQuest!.id).toBe(expectedNextQuestId);
-  });
-
   it('should go to congrats page if game finished', () => {
     const lastCompletedQuestId = QUESTS[QUESTS.length - 1]?.id;
     component.lastCompletedQuestId = lastCompletedQuestId;
@@ -74,23 +55,4 @@ describe('QuestWindowComponent', () => {
 
     expect(component.isIntroductionCompleted).toBeTruthy();
   });
-
-  it('should emit quest completed event', () => {
-    component.isIntroductionCompleted = true;
-    component.activeQuest = MOCK_QUEST;
-    const spy = spyOn(component.questCompleted, 'emit');
-
-    component.onQuestCompleted(true);
-
-    expect(component.isIntroductionCompleted).toBeFalsy();
-    expect(spy).toHaveBeenCalledWith({id: MOCK_QUEST.id});
-  })
-
-  it('should not emit quest completed event if quest not completed', () => {
-    const spy = spyOn(component.questCompleted, 'emit');
-
-    component.onQuestCompleted(false);
-
-    expect(spy).not.toHaveBeenCalled();
-  })
 });

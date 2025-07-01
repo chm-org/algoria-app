@@ -1,6 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  signal,
+  SimpleChanges,
+  WritableSignal
+} from '@angular/core';
 import { Router } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
+import { CodeSubmission, CodeWritingExpectations, Language } from 'algoria-utils';
 import { QUESTS } from "../../consts/quests";
 import { AlgorithmicQuest } from "../../interfaces/algorithmic-quest.interface";
 import { BaseDialogComponent } from "../base-dialog/base-dialog.component";
@@ -16,7 +27,8 @@ import { TaskDisplayComponent } from "./task-display/task-display.component";
     CodeEditorComponent,
     TaskDisplayComponent,
     BaseDialogComponent,
-    TranslateModule
+    TranslateModule,
+    JsonPipe
   ],
   templateUrl: './quest-window.component.html',
   styleUrl: './quest-window.component.scss'
@@ -24,8 +36,11 @@ import { TaskDisplayComponent } from "./task-display/task-display.component";
 export class QuestWindowComponent implements OnChanges {
   @Input({required: true}) lastCompletedQuestId: string | undefined;
   @Output() questCompleted = new EventEmitter<{ id: string }>();
+
   activeQuest: AlgorithmicQuest | undefined;
   isIntroductionCompleted = false;
+  executionInProgress = signal(false);
+  submission: WritableSignal<CodeSubmission | undefined> = signal(undefined);
 
   constructor(
     private router: Router,
@@ -54,16 +69,27 @@ export class QuestWindowComponent implements OnChanges {
     this.activeQuest = QUESTS[index];
   }
 
+  onExecutionCompleted() {
+    this.executionInProgress.set(false);
+  }
+
   onIntroCompleted(): void {
     this.isIntroductionCompleted = true;
   }
 
-  onQuestCompleted(isCompleted: boolean) {
-    if (!isCompleted) {
-      return;
-    }
-
-    this.isIntroductionCompleted = false;
+  onChallengeCompleted() {
+     this.isIntroductionCompleted = false;
     this.questCompleted.emit({id: this.activeQuest!.id});
+  }
+
+  onExecuteCode(code: string) {
+    this.executionInProgress.set(true);
+    this.submission.set({
+      code,
+      userId: "sole-user",
+      problemId: this.activeQuest?.id || "unknown",
+      language: Language.JavaScript, // JavaScript only for now
+      timestamp: new Date(),
+    });
   }
 }

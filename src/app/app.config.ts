@@ -5,8 +5,10 @@ import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { MonacoEditorModule } from "ngx-monaco-editor-v2";
+import { DefaultLoggerFactory } from 'algoria-utils';
 
 import { routes } from './app.routes';
+import { LOGGER_FACTORY } from './consts/logger-factory.token';
 
 
 export const appConfig: ApplicationConfig = {
@@ -27,5 +29,11 @@ export const appConfig: ApplicationConfig = {
         useDefaultLang: true
       })
     ]),
+    {
+      provide: LOGGER_FACTORY,
+      useFactory: () => {
+        return new DefaultLoggerFactory();
+      }
+    }
   ],
 };

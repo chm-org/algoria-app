@@ -79,7 +79,7 @@
 		"PARAGRAPH": "This is a code-writing app, thus for better user experience, it is available only on desktop devices. Please visit us on a desktop to access it."
 	},
 	"MAZE_OF_KNOWLEDGE": {
-		"CONGRATULATIONS": "Excellent, young hero! You have successfully found your way through the Maze of Knowledge using breadth-first search. Now you understand how search algorithms can help you on your journey. Get ready for the next challenge - organizing the Chronicle Library!",
+		"CONGRATULATIONS": "Excellent, young hero! You have successfully found your way through the Maze of Knowledge using breadth-first search. Now you understand how search algorithms can help you on your journey.",
 		"DESCRIPTION": {
 			"INTRO": "The maze of knowledge is a place where each room is connected to other corridors. Your task is to find the shortest path from the entrance to the exit using pathfinding algorithms. Good luck, young hero!",
 			"PARAMETERS": {

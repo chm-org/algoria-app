@@ -10,7 +10,7 @@ export interface AlgorithmicQuest extends BaseQuest{
   uncompletedCode: string;
   missingCodeTemplate: string;
   expectedResult: any;
-  match: (actualResult: any) => boolean
+  match?: (actualResult: any) => boolean;
   coverImageUrl?: string;
 }
 
