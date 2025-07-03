@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  // TODO: set prod URL
-  apiUrl: 'http://prod-domain/algoria-challenges'
+  apiUrl: 'https://chm-org.github.io/algoria-challenges'
 };

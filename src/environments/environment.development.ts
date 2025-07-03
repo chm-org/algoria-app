@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5173/algoria-challenges'
+  apiUrl: 'http://localhost:3001/algoria-challenges'
 };
