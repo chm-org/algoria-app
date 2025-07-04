@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { FEEDBACK_PAGE_URL } from "../../consts/common";
@@ -16,7 +16,11 @@ import { UserService } from "../../services/user.service";
 export class CongratulationsComponent implements AfterViewInit {
   readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
 
+  private confettiElements: HTMLElement[] = [];
+  private readonly confettiDuration = 8000;
+
   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private userService: UserService,
@@ -26,6 +30,7 @@ export class CongratulationsComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.createConfetti();
+    this.stopConfettiAfterTimeout();
   }
 
   createConfetti(): void {
@@ -35,11 +40,29 @@ export class CongratulationsComponent implements AfterViewInit {
     for (let i = 0; i < confettiCount; i++) {
       const confetti = this.renderer.createElement('div');
       this.renderer.addClass(confetti, 'confetti');
-      this.renderer.setStyle(confetti, 'backgroundColor', confettiColors[Math.floor(Math.random() * confettiColors.length)]);
+      this.renderer.setStyle(
+        confetti,
+        'backgroundColor',
+        confettiColors[Math.floor(Math.random() * confettiColors.length)]
+      );
       this.renderer.setStyle(confetti, 'left', `${Math.random() * 100}vw`);
-      this.renderer.setStyle(confetti, 'animationDelay', `${Math.random() * 5}s`);
+      this.renderer.setStyle(confetti, 'animationDelay', `${Math.random() * 2}s`);
+
       this.renderer.appendChild(this.elementRef.nativeElement, confetti);
+
+      // keep the reference so we can remove it later
+      this.confettiElements.push(confetti);
     }
+  }
+
+  private stopConfettiAfterTimeout(): void {
+    setTimeout(() => {
+      this.confettiElements.forEach(el => {
+        this.renderer.removeChild(this.elementRef.nativeElement, el);
+      });
+      this.confettiElements.length = 0; // clear the array
+      this.changeDetectorRef.markForCheck();
+    }, this.confettiDuration);
   }
 
   onStartOver() {
