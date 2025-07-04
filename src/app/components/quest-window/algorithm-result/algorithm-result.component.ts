@@ -15,11 +15,14 @@ import { CodeSubmission, CodeWritingExpectations, LoggerFactory, TestResult } fr
 import { FEEDBACK_PAGE_URL } from "../../../consts/common";
 import { LOGGER_FACTORY } from '../../../consts/logger-factory.token';
 
+type Status = 'pending' | 'passed' | 'failed';
+
+
 @Component({
   selector: 'app-algorithm-result',
   standalone: true,
   imports: [
-    TranslateModule
+    TranslateModule,
   ],
   templateUrl: './algorithm-result.component.html',
   styleUrl: './algorithm-result.component.scss'
@@ -34,6 +37,7 @@ export class AlgorithmResultComponent implements OnChanges {
   actualResultInFailedTest: WritableSignal<string | null> = signal(null);
   readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
   result: WritableSignal<TestResult> = signal({details: [], passed: false})
+  status: WritableSignal<Status> = signal('pending');
   runner: IsolatedRunner;
 
   constructor(
@@ -58,14 +62,15 @@ export class AlgorithmResultComponent implements OnChanges {
       return;
     }
 
+    this.status.set('pending');
     const result = await this.runner.runTests(submission, expectations.functions);
-    this.result.set(result)
-    if (result.passed) {
-      this.actualResultInFailedTest.set(null);
-    } else {
-      this.actualResultInFailedTest.set(this.parseErrorMessage(result.details));
-    }
 
+    this.result.set(result);
+    const nextStatus: Status = result.passed ? 'passed' : 'failed';
+    const failedTestOutput = result.passed ? null : this.parseErrorMessage(result.details);
+
+    this.status.set(nextStatus);
+    this.actualResultInFailedTest.set(failedTestOutput);
     this.executionCompleted.emit();
   }
 

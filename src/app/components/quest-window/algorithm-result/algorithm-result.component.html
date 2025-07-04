@@ -2,7 +2,7 @@
   <p>
     <a [href]="feedbackPageUrl" target="_blank">{{ "COMMON.FEEDBACK_PAGE" | translate }}</a>
   </p>
-  @if (result().passed) {
+  @if (status() === 'passed') {
     <p>
       <strong class="success">{{ "TEST_RUN_RESULTS.IT_WORKED" | translate }}</strong>
     </p>
@@ -11,7 +11,7 @@
     <p>
       <button (click)="onChallengeCompleted()">{{ "COMMON.BUTTONS.NEXT" | translate }}</button>
     </p>
-  } @else if (submission && !result().passed) {
+  } @else if (status() === 'failed') {
     <p>
       <strong class="error">{{ "TEST_RUN_RESULTS.NOT_WORKED" | translate }}</strong>
     </p>
