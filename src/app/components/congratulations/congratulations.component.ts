@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
-import { FEEDBACK_PAGE_URL } from "../../consts/common";
+import { REPO_PAGE_URL } from "../../consts/common";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -14,7 +14,7 @@ import { UserService } from "../../services/user.service";
   styleUrl: './congratulations.component.scss'
 })
 export class CongratulationsComponent implements AfterViewInit {
-  readonly feedbackPageUrl = FEEDBACK_PAGE_URL;
+  readonly repoPageUrl = REPO_PAGE_URL;
 
   private confettiElements: HTMLElement[] = [];
   private readonly confettiDuration = 8000;

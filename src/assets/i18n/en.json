@@ -66,12 +66,13 @@
 			"START": "Start"
 		},
 		"FEEDBACK_PAGE": "To the discussion page",
-		"LOADING": "Loading..."
+		"LOADING": "Loading...",
+		"REPO_PAGE": "To the repository page"
 	},
 	"CONGRATULATIONS": {
-		"HEADLINE": "Congratulations!",
-		"LEAVE_FEEDBACK": "Your feedback is important for us! This is a demo version of the quest, and work on the remaining levels is ongoing. Please share your impressions and suggestions on our discussion page.",
-		"PARAGRAPH": "Congratulations young hero, your journey is complete, but there are many more adventures to come!",
+		"HEADLINE": "Congratulations, young hero!",
+		"LEAVE_FEEDBACK": "Visit the repository and star or watch it to stay updated — your next adventure might begin with your first pull request 😉",
+		"PARAGRAPH": "You've completed this quest but your journey with us is just beginning. We’ve opened the source code of this project to give newcomers a chance to gain real-world experience.\nOur next goal is to make the repository beginner-friendly by adding Good First Issues (GFI) and helpful documentation.",
 		"START_OVER": "Start over"
 	},
 	"DEVICE_WARNING": {
