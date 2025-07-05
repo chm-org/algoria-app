@@ -1,8 +1,20 @@
 {
   "name": "algoria",
-  "description": "An adventure game where the player needs to solve puzzles and complete tasks using different data structures and algorithms.",
-  "author": "Roman Kordas <roman.kordas7@gmail.com>",
-  "license": "MIT",
+  "description": "An adventure game where the player needs to solve programming challenges using different data structures and algorithms.",
+  "author": "Roman Kordas",
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chm-org/algoria-app"
+  },
+  "keywords": ["algoria", "puzzle game"],
+  "license": "BY-NC-SA 4.0",
+  "homepage": "https://github.com/chm-org/algoria-app",
+  "bugs": {
+    "url": "https://github.com/chm-org/algoria-app/issues"
+  },
+  "files": [
+    "dist/**/*"
+  ],
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
