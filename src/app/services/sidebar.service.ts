@@ -1,5 +1,6 @@
-import { Injectable, signal, Type } from '@angular/core';
+import {computed, Injectable, signal, Type} from '@angular/core';
 import { SkillsComponent } from '../components/skills/skills.component';
+import {SkillsService} from "./skills.service";
 
 
 export interface MenuItem {
@@ -13,8 +14,14 @@ export interface MenuItem {
   providedIn: 'root'
 })
 export class SidebarService {
-  private readonly _isExpanded = signal(false);
-  readonly isExpanded = this._isExpanded.asReadonly();
+  private readonly _isPanelOpen = signal(false);
+  readonly isPanelOpen = this._isPanelOpen.asReadonly();
+
+  readonly hasActiveCheatSheet = computed(() => !!this.skillsService.cheatSheetId())
+  readonly isPanelMaximized = computed<boolean>(() =>
+    this.isPanelOpen() && this.hasActiveCheatSheet()
+  );
+
   readonly menuItems: MenuItem[] = [{
     slug: 'skills',
     icon: 'pi pi-lightbulb',
@@ -24,13 +31,18 @@ export class SidebarService {
   private readonly _activeMenuItem = signal<MenuItem | null>(null);
   readonly activeMenuItem = this._activeMenuItem.asReadonly();
 
-  open(item: MenuItem): void {
-    this._activeMenuItem.set(item);
-    this._isExpanded.set(true);
+  constructor(
+    private skillsService: SkillsService,
+  ) {
   }
 
-  close(): void {
-    this._isExpanded.set(false);
+  openPanel(item: MenuItem): void {
+    this._activeMenuItem.set(item);
+    this._isPanelOpen.set(true);
+  }
+
+  closePanel(): void {
+    this._isPanelOpen.set(false);
     this._activeMenuItem.set(null);
   }
 
@@ -38,9 +50,15 @@ export class SidebarService {
     const skills = this.menuItems.find(item => item.slug === 'skills');
 
     if (skills) {
-      this.open(skills);
+      this.openPanel(skills);
     } else {
       console.error('Skills menu item not found.');
+    }
+  }
+
+  minimizePanel() {
+    if (this.hasActiveCheatSheet()) {
+      this.skillsService.resetCheatSheet();
     }
   }
 }

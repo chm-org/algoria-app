@@ -1,6 +1,6 @@
-<div class="side-panel">
-  <div class="main-toolbar">
-    <div class="toolbar-section">
+<div class="sidebar-layout">
+  <div class="nav-rail">
+    <div class="rail-section">
 <!--        TODO: ask for confirmation before leaving-->
       <p-button
         icon="pi pi-home"
@@ -9,12 +9,12 @@
       />
     </div>
 
-    <div class="toolbar-section toolbar-section--bottom">
+    <div class="rail-section rail-section--bottom">
       @for ( item of menuItems; track item.slug) {
         <div class="trigger-wrapper" [class.active]="activeMenuItem()?.slug === item.slug">
           <p-button
             [icon]="item.icon"
-            (click)="onToggleDrawer(item)"
+            (click)="onToggleNavItem(item)"
           />
         </div>
       }
@@ -23,15 +23,24 @@
 
 <!--  TODO: close drawer on Esc keyup-->
   <div
-    class="drawer"
-    [class.expanded]="isExpanded()"
+    class="content-panel"
+    [class.content-panel--open]="isPanelOpen()"
+    [class.content-panel--maximized]="isPanelMaximized()"
   >
-    <div class="drawer-toolbar">
+    <div class="panel-toolbar">
+      @if (isPanelMaximized()) {
+        <p-button
+          icon="pi pi-angle-left"
+          [text]="true"
+          (onClick)="onMinimizePanel()"
+        ></p-button>
+      }
+
       <p-button
         icon="pi pi-times"
         [rounded]="true"
         [text]="true"
-        (onClick)="onCloseDrawer()"
+        (onClick)="onClosePanel()"
       ></p-button>
     </div>
 

@@ -23,6 +23,15 @@
             <a href="javascript:void(0)" [class.disabled]="challenge.blocked" (click)="onChallengeSelected(challenge.id)">
               {{ challenge.title }}
             </a>
+            <!-- TODO: enable for completed challenges only -->
+            <p-button
+              icon="pi pi-book"
+              [rounded]="true"
+              [text]="true"
+              (click)="onCheatSheetRequested(challenge.id)"
+            >
+
+            </p-button>
           </li>
         }
       </ul>

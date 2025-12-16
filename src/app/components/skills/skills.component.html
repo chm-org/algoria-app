@@ -1,8 +1,14 @@
-<app-skills-p
-  [trees]="skillTrees()"
-  [activeTreeIndex]="activeTreeIndex()"
-  [challenges]="challenges()"
-  (activeTreeIndexChanges)="onActiveTreeIndexChanges($event)"
-  (challengeSelected)="onChallengeSelected($event)"
->
-</app-skills-p>
+@if (cheatSheetId()) {
+  <app-cheat-sheet-p [cheatSheet]="cheatSheet()"></app-cheat-sheet-p>
+} @else {
+  <app-skills-p
+    [trees]="skillTrees()"
+    [activeTreeIndex]="activeTreeIndex()"
+    [challenges]="challenges()"
+    (activeTreeIndexChanges)="onActiveTreeIndexChanges($event)"
+    (challengeSelected)="onChallengeSelected($event)"
+    (cheatSheetRequested)="onCheatSheetRequested($event)"
+  >
+  </app-skills-p>
+}
+

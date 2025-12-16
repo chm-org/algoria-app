@@ -3,12 +3,14 @@ import { Challenge, SkillTree } from 'algoria-utils';
 import { PrimeTemplate } from 'primeng/api';
 import { Carousel, CarouselPageEvent } from 'primeng/carousel';
 import { AppChallenge } from '../../../interfaces/app-challenge.interface';
+import { Button } from "primeng/button";
 
 @Component({
   selector: 'app-skills-p',
   imports: [
     Carousel,
-    PrimeTemplate
+    PrimeTemplate,
+    Button
   ],
   templateUrl: './skills-p.component.html',
   styleUrl: './skills-p.component.scss'
@@ -19,6 +21,7 @@ export class SkillsPComponent {
   @Input({ required: true }) challenges: AppChallenge[] = [];
   @Output() activeTreeIndexChanges = new EventEmitter<{index: number}>();
   @Output() challengeSelected = new EventEmitter<{id: string}>();
+  @Output() cheatSheetRequested = new EventEmitter<{id: string}>();
 
   readonly numVisible = 1;
   readonly numScroll = 1;
@@ -29,5 +32,9 @@ export class SkillsPComponent {
 
   onChallengeSelected(id: string) {
     this.challengeSelected.emit({id});
+  }
+
+  onCheatSheetRequested(id: string) {
+    this.cheatSheetRequested.emit({id});
   }
 }

@@ -1,8 +1,8 @@
-import { NgComponentOutlet } from '@angular/common';
-import { Component, Input, OnDestroy } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { Button } from 'primeng/button';
-import { MenuItem, SidebarService } from '../../../services/sidebar.service';
+import {NgComponentOutlet} from '@angular/common';
+import {Component, computed, Input, OnDestroy} from '@angular/core';
+import {RouterLink} from '@angular/router';
+import {Button} from 'primeng/button';
+import {MenuItem, SidebarService} from '../../../services/sidebar.service';
 
 
 @Component({
@@ -18,9 +18,12 @@ import { MenuItem, SidebarService } from '../../../services/sidebar.service';
 export class SidebarComponent implements OnDestroy {
   @Input() isHomePage = false;
 
-  isExpanded = this.sidebarService.isExpanded;
+  isPanelOpen = this.sidebarService.isPanelOpen;
+
   readonly menuItems = this.sidebarService.menuItems;
   activeMenuItem = this.sidebarService.activeMenuItem;
+
+  protected readonly isPanelMaximized = this.sidebarService.isPanelMaximized
 
   constructor(
     private sidebarService: SidebarService,
@@ -28,14 +31,22 @@ export class SidebarComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sidebarService.close();
+    this.sidebarService.closePanel();
   }
 
-  onToggleDrawer(item: MenuItem) {
-    this.isExpanded() ? this.sidebarService.close() : this.sidebarService.open(item);
+  onToggleNavItem(item: MenuItem) {
+    if (this.isPanelOpen() && this.activeMenuItem()?.slug === item.slug) {
+      this.sidebarService.closePanel();
+    } else {
+      this.sidebarService.openPanel(item);
+    }
   }
 
-  onCloseDrawer() {
-    this.sidebarService.close();
+  onClosePanel() {
+    this.sidebarService.closePanel();
+  }
+
+  onMinimizePanel() {
+    this.sidebarService.minimizePanel();
   }
 }
